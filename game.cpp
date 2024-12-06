@@ -41,6 +41,10 @@ void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game
     topic1Map = new Topic1(map, game); 
 }
 
+void deleteMaps() {
+    delete topic1Map;
+}
+
 BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game, std::string& mapNumber) {
     if (mapNumber == "1") {
         std::cout << "Arrived at Standard Library Containers (map, vector, etc.)\n";
@@ -162,6 +166,8 @@ int main() {
 
     inputThread1.join();
     inputThread1.join();
+
+    deleteMaps(); //clear maps
 
     return 0;
 }
