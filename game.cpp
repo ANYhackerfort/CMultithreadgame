@@ -1,7 +1,7 @@
 #include <iostream>
-#include "maingame.h"
-#include "basemap.h"
-#include "topic1.h"
+#include "./basemap/maingame.h"
+#include "./maps/topic1/topic1.h"
+#include "./basemap/basemap.h"
 #include <thread>
 #include <memory>
 #include <atomic>

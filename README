@@ -1,9 +1,7 @@
-This is the file where you should include your names, what your game is called, what is the objective. You should include all sources used, the organization of your code, what topics you are attempting to score points for, and any additional information you deem fit to help us with grading and understanding your game. Make sure to delete this text upon your submissions and reach out either in person or piazza to any of the TAs or ULAs for additional help!
-
 Project by: Matthew Zhang & Tony Li
 
 ============
-The objective is to create a Elden Ring open world game. This game has 10 maps (or areas) like Elden ring and when a user beats an area, the user can tp to any area even while they are completing a level but once they leave, the square of the level they are on gets reset (like an elden ring boss) but the other bosses (squares) that are beat gets saved so users can skip through the beat areas of the map. Progress is stored in 10 map objects. 
+The objective is to create an Elden Ring open world game. This game has 10 maps (or areas) like Elden ring and when a user beats an area, the user can tp to any area even while they are completing a level but once they leave, the square of the level they are on gets reset (like an elden ring boss) but the other bosses (squares) that are beat gets saved so users can skip through the beat areas of the map. Progress is stored in 10 map objects. 
 ============
 
 Teleportation:
@@ -16,6 +14,7 @@ Rules:
 - Once you lose all your health, all progress is lost at that square, you have to start over.
 - Items are rare but once you find them, you can use it to skip past attacks. 
 - When you decide to move away to another square, all progress is lost. That's the challening part! 
+- Once you beat the square, the number of square beat gets incremented, you can not try to beat the square again!
 
 How to win:
 - You only need to complete 10 squares of the ten maps, you can choose any. But once you lose all your health! GAME OVER EVERYTHING RESETS!

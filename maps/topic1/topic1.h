@@ -1,8 +1,8 @@
 #ifndef TOPIC1_H
 #define TOPIC1_H
 
-#include "maingame.h"
-#include "basemap.h"
+#include "../../basemap/maingame.h"
+#include "../../basemap/basemap.h"
 #include <string>
 #include <array>
 #include <memory>

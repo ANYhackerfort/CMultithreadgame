@@ -3,10 +3,21 @@ CXXFLAGS = -std=c++17
 
 all: game 
 
-# Compile and run game
 game: game.o maingame.o basemap.o topic1.o
 	$(CXX) $(CXXFLAGS) -o $@ $^
 	./game
-# Clean up
+
+game.o: game.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+maingame.o: basemap/maingame.cpp basemap/maingame.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+basemap.o: basemap/basemap.cpp basemap/basemap.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+topic1.o: maps/topic1/topic1.cpp maps/topic1/topic1.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 clean:
 	rm -f game *.o

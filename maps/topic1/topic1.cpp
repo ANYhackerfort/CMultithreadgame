@@ -1,6 +1,6 @@
 #include "topic1.h"
-#include "maingame.h"
-#include "basemap.h"
+#include "../../basemap/maingame.h"
+#include "../../basemap/basemap.h"
 #include <iostream>
 #include <memory>
 
