@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./basemap/maingame.h"
 #include "./maps/topic1/topic1.h"
+#include "./maps/topic6/topic6.h"
 #include "./basemap/basemap.h"
 #include <thread>
 #include <memory>
@@ -12,7 +13,7 @@ std::atomic<bool> isGameRunning(true);
 
 //store all maps, dont forget to clean
 Topic1* topic1Map; 
-
+Topic6* topic6Map; 
 void displayLoadingScreen() {
     std::cout << "\nDid you know you can type:\n";
     std::cout << "  - /lookuphealth to check your health stats\n";
@@ -40,11 +41,13 @@ void displayLoadingScreen() {
 void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& game) {
     if (topic1Map == nullptr) { 
         topic1Map = new Topic1(map, game);
+        topic6Map = new Topic6(map, game);
     }
 }
 
 void deleteMaps() {
     delete topic1Map;
+    delete topic6Map;
 }
 
 
@@ -63,6 +66,7 @@ BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<Advent
         std::cout << "Arrived at Lambda Functions\n";
     } else if (mapNumber == "6") {
         std::cout << "Arrived at Exception Handling\n";
+        return topic6Map;
     } else if (mapNumber == "7") {
         std::cout << "Arrived at Inheritance\n";
     } else if (mapNumber == "8") {
@@ -98,7 +102,8 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
             }else if(userChoice=="5"){
                 
             }else if(userChoice=="6"){
-                
+                std::cout<<"Arrived at Exception Handling\n";
+                topic6Map->displayMapWithPlayerI();
             }else if(userChoice=="7"){
                 
             }else if(userChoice=="8"){
