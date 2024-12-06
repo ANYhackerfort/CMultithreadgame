@@ -10,6 +10,9 @@
 
 std::atomic<bool> isGameRunning(true);
 
+//store all maps, dont forget to clean
+Topic1* topic1Map; 
+
 void displayLoadingScreen() {
     std::cout << "\nDid you know you can type:\n";
     std::cout << "  - /lookuphealth to check your health stats\n";
@@ -34,10 +37,14 @@ void displayLoadingScreen() {
     std::cout << std::endl;
 }
 
-BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::string& mapNumber) {
+void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game) {
+    topic1Map = new Topic1(map, game); 
+}
+
+BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game, std::string& mapNumber) {
     if (mapNumber == "1") {
         std::cout << "Arrived at Standard Library Containers (map, vector, etc.)\n";
-        return new Topic1(map); 
+        return topic1Map; 
     } else if (mapNumber == "2") {
         std::cout << "Arrived at Custom Template Class\n";
     } else if (mapNumber == "3") {
@@ -62,15 +69,15 @@ BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::string& mapNumber
     return nullptr;
 }
 
-void handleMapSelection(AdventureGame& game, std::shared_ptr<BaseMap>& map, std::string& mapNumber) {
+void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMap>& map, std::string& mapNumber) {
     std::string userChoice;
     while (true) {
         std::cout << "\nEnter the number of the map you'd like to transport to: ";
         std::cin >> userChoice;
 
-        if (game.hasTopicsByID(userChoice)) {
+        if (game->hasTopicsByID(userChoice)) {
             std::cout << "Transporting to... ";
-            game.displayTopicsByID(userChoice);
+            game->displayTopicsByID(userChoice);
             displayLoadingScreen();
             mapNumber = userChoice;
             break;
@@ -80,14 +87,14 @@ void handleMapSelection(AdventureGame& game, std::shared_ptr<BaseMap>& map, std:
     }
 }
 
-void commandListener(AdventureGame& game, std::shared_ptr<BaseMap>& map, std::string& mapNumber) {
+void commandListener(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMap>& map, std::string& mapNumber) {
     std::string input;
 
     while (isGameRunning) {
         std::getline(std::cin, input);
         std::transform(input.begin(), input.end(), input.begin(), ::tolower);
         if (input == "movenorth" || input == "movewest" || input == "movesouth" || input == "moveeast") {
-            BaseMap* currentMap = processUserChoice(map, mapNumber);
+            BaseMap* currentMap = processUserChoice(map, game, mapNumber);
             // std::cout << map.use_count();
             if (input == "movenorth") {
                 std::cout << "<<Moved North>>" << std::endl;
@@ -107,16 +114,15 @@ void commandListener(AdventureGame& game, std::shared_ptr<BaseMap>& map, std::st
             } else {
                 std::cout << "No valid map to handle." << std::endl;
             }
-            delete currentMap;
         }
 
         if (!input.empty() && input[0] == '/') {
-            if (input == "/lookuphealth") {
-                game.displayStats();
+            if (input == "/stats") {
+                game->displayStats();
             } else if (input == "/displayinventory") {
-                game.displayInventory();
+                game->displayInventory();
             } else if (input == "/displaymap") {
-                game.displayTopics();
+                game->displayTopics();
                 handleMapSelection(game, map, mapNumber);
             } else {
                 std::cout << "Unknown command: " << input << std::endl;
@@ -125,12 +131,12 @@ void commandListener(AdventureGame& game, std::shared_ptr<BaseMap>& map, std::st
     }
 }
 
-void checkStatus(AdventureGame& game) {
+void checkStatus(std::shared_ptr<AdventureGame>& game) {
     while (isGameRunning) {
-        if (game.returnHealth() <= 0) {
+        if (game->returnHealth() <= 0) {
             std::cout << "You have DIED! All Progress Lost!" << std::endl;
             isGameRunning = false; 
-        } else if (game.completedSquares > 10) {
+        } else if (game->completedSquares > 10) {
             std::cout << "You have WON! Thanks for playing!" << std::endl;
             isGameRunning = false; 
         }
@@ -138,8 +144,10 @@ void checkStatus(AdventureGame& game) {
     }
 }
 int main() {
-    AdventureGame game;
     std::shared_ptr<BaseMap> map = std::make_shared<BaseMap>();
+    std::shared_ptr<AdventureGame> game = std::make_shared<AdventureGame>();
+    loadMaps(map, game);
+
     // std::shared_ptr<BaseMap> anotherMap = map;
     std::string mapNumber;
 

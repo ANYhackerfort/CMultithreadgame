@@ -6,10 +6,12 @@
 
 Topic1::Topic1()
     : baseMap(std::make_shared<BaseMap>()), // Create a new BaseMap using shared_ptr
+      baseGame(std::make_shared<AdventureGame>()),
       squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {}
 
-Topic1::Topic1(std::shared_ptr<BaseMap>& existingBaseMap)
+Topic1::Topic1(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
+      baseGame(existingBaseGame),
       squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
 }
 
@@ -29,10 +31,13 @@ void Topic1::handleSquare01() {
 
     printChoices("answers", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)");
     startInputListener(); //auto stops each time, you have to type this each time
-    validateChoice(getCurrentInput(), "1");
-
-    squares[0][0] = true; 
-    ++completedSquares;
+    if(validateChoice(getCurrentInput(), "1")) {
+        displayWithDelay("You beat the square!");
+        squares[0][0] = true; 
+        ++completedSquares;
+    } else {
+        displayWithDelay("You lost, progress reset!");
+    }
 }
 
 void Topic1::handleSquare02() {

@@ -67,12 +67,6 @@ void BaseMap::startInputListener() {
             break;
         } else {
             std::cout << "Invalid choice! Please enter a valid choice (1, 2, 3, 4, or exit to move to another square).\n";
-            input.push(userChoice); 
-
-            if (input.size() > 1) {
-                input.pop();
-            }
-            break; 
         }
     }
 }
@@ -102,12 +96,21 @@ void BaseMap::printChoices(const std::string& chooseWhat,
     std::cout << "4: " << choice4 << "\n";
 }
 
-void BaseMap::validateChoice(const std::string& choice, const std::string& rightChoice, const std::string& winningMessage, const std::string& losingMessage) {
+bool BaseMap::validateChoice(const std::string& choice, 
+                             const std::string& rightChoice, 
+                             const std::string& winningMessage, 
+                             const std::string& losingMessage, 
+                             const std::shared_ptr<BaseMap>& existingBaseMap) {
     if (choice == rightChoice) {
         std::cout << winningMessage << std::endl;
+        return true; 
     } else if (choice == "") {
+        return false; 
     } else {
-        std::cout << losingMessage << " {-18 health!}";
-        health -= 18;
+        std::cout << losingMessage << " {-18 health!}" << std::endl;
+        if (existingBaseMap) {
+            existingBaseMap->health -= 18; // Adjust health only if existingBaseMap is valid
+        }
+        return false; 
     }
 }

@@ -12,10 +12,11 @@ class Topic1 : public BaseMap{
 private:
     std::array<std::array<bool, 3>, 3> squares; 
     std::shared_ptr<BaseMap> baseMap; 
+    std::shared_ptr<AdventureGame> baseGame; 
 
 public:
     Topic1();
-    Topic1(std::shared_ptr<BaseMap>&  existingBaseMap);
+    Topic1(std::shared_ptr<BaseMap>&  existingBaseMap, std::shared_ptr<AdventureGame>& existingAdventureGame);
     ~Topic1();
 
     //story implementation bla bla bla
