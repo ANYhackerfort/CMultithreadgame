@@ -71,10 +71,10 @@ void Topic6::handleSquare02() {
     if(validateChoice(getCurrentInput(), "4","","",baseMap)) {
 
         // displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
-        displayWithDelay("[exception handling] launches another attack: What happens if an exception is thrown but not caught in C++?", 1500); 
-        printChoices("answers", "The program terminates with an error message.","The exception is ignored.","The compiler resolves the exception automatically.","D. Undefined behavior occurs.");
+        displayWithDelay("[exception handling] launches another attack: What is a correct minimal declaration of a trivial exception class?", 1500); 
+        printChoices("answers", "class exceptionClass{};","class MyException = public std::exception {};","class MyException { public: virtual const char* what() const noexcept; };","class MyException : std::exception {};");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "4","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
             squares[0][1] = true; 
             ++completedSquares;
             displayMapWithPlayer(squares, baseMap);
