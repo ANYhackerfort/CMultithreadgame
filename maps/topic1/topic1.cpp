@@ -40,14 +40,14 @@ void Topic1::handleSquare01() {
 
     printChoices("answers", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "1")) {
+    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
         // displayWithDelay("You beat the square!");
 
         displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
         displayWithDelay("[std::map] launches a weak attack: how to traverse a map BACKWARDS!", 1500); 
         printChoices("answers", "for (auto rit = myMap.sdfsdfsdf(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "1")) {
+        if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
             squares[0][1] = true; 
             ++completedSquares;
             displayMapWithPlayer(squares, baseMap);

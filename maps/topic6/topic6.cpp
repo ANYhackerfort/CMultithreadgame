@@ -35,18 +35,18 @@ void Topic6::handleSquare01() {
     std::cout << "You are on the Mountain.\n";
     displayMapWithPlayer(squares, baseMap);
     
-    displayWithDelay("You have encountered [basics of exception handling]! the a boss of this level!", 1000); 
-    displayWithDelay("[std::map] launches a weak attack: What is the purpose of exception handling in C++?", 1500); 
+    displayWithDelay("You have encountered [basics of exception handling]! A boss of this level!", 1000); 
+    displayWithDelay("[basics of exception handling] launches a weak attack: What is the purpose of exception handling in C++?", 1500); 
 
     printChoices("answers", "To terminate a program immediately when an error occurs", "To handle runtime errors in a structured and recoverable way","To debug compile-time errors","To improve code readability");
     startInputListener(); //auto stops each time, you have to type this each time
     if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
 
         // displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
-        displayWithDelay("[basics of exception handling] launches an attack: Which of the following is the correct syntax to throw an exception in C++?", 1500); 
-        printChoices("answers", "throw exception_type;", "throw new exception_type();","throw exception_type();","throw;");
+        displayWithDelay("[basics of exception handling] launches an attack: What happens if an exception is thrown but not caught in C++?", 1500); 
+        printChoices("answers", "The program terminates with an error message.","The exception is ignored.","The compiler resolves the exception automatically.","D. Undefined behavior occurs.");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "4","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
             squares[0][1] = true; 
             ++completedSquares;
             displayMapWithPlayer(squares, baseMap);
@@ -63,6 +63,28 @@ void Topic6::handleSquare02() {
     std::cout << "You are by the River.\n";
     displayMapWithPlayer(squares, baseMap);
 
+    displayWithDelay("You have encountered a [exception handling]! A boss of this level!", 1000); 
+    displayWithDelay("[exception handling] launches a weak attack: What kind of value can be thrown in C++?", 1500); 
+
+    printChoices("answers", "java.lang.Exception", "only classes that inherit from std::exception","only ints","any type");
+    startInputListener(); //auto stops each time, you have to type this each time
+    if(validateChoice(getCurrentInput(), "4","","",baseMap)) {
+
+        // displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
+        displayWithDelay("[exception handling] launches another attack: What happens if an exception is thrown but not caught in C++?", 1500); 
+        printChoices("answers", "The program terminates with an error message.","The exception is ignored.","The compiler resolves the exception automatically.","D. Undefined behavior occurs.");
+        startInputListener();
+        if(validateChoice(getCurrentInput(), "4","","",baseMap)) {
+            squares[0][1] = true; 
+            ++completedSquares;
+            displayMapWithPlayer(squares, baseMap);
+            displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
+        } else {
+            displayWithDelay("You lost, progress reset!");
+        }
+    } else {
+        displayWithDelay("You lost, progress reset!");
+    }
 }
 
 void Topic6::handleSquare10() {
