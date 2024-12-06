@@ -6,6 +6,7 @@
 #include <memory>
 #include <atomic>
 #include <chrono>
+#include <algorithm>
 
 std::atomic<bool> isGameRunning(true);
 
