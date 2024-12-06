@@ -19,12 +19,17 @@ Topic1::~Topic1() {
 
 }
 
+bool Topic1::uncompletedSquare() {
+    return !squares[playerPosition.first][playerPosition.second];
+}
+
 void Topic1::handleSquare00() {
 
 }
 
 void Topic1::handleSquare01() {
     std::cout << "You are on the Mountain.\n";
+    displayMapWithPlayer(squares);
     
     displayWithDelay("You have met up against [std::map]! the final Ohio boss of this level!", 1000); 
     displayWithDelay("[std::map] launches a weak attack: how to traverse a map BACKWARDS!", 1500); 
@@ -32,9 +37,20 @@ void Topic1::handleSquare01() {
     printChoices("answers", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)");
     startInputListener(); //auto stops each time, you have to type this each time
     if(validateChoice(getCurrentInput(), "1")) {
-        displayWithDelay("You beat the square!");
-        squares[0][0] = true; 
-        ++completedSquares;
+        // displayWithDelay("You beat the square!");
+
+        displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
+        displayWithDelay("[std::map] launches a weak attack: how to traverse a map BACKWARDS!", 1500); 
+        printChoices("answers", "for (auto rit = myMap.sdfsdfsdf(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)");
+        startInputListener();
+        if(validateChoice(getCurrentInput(), "1")) {
+            squares[0][1] = true; 
+            ++completedSquares;
+            displayMapWithPlayer(squares);
+            displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
+        } else {
+            displayWithDelay("You lost, progress reset!");
+        }
     } else {
         displayWithDelay("You lost, progress reset!");
     }
@@ -75,7 +91,7 @@ void Topic1::handleCurrentSquare() {
 
     if (x >= 0 && x < 3 && y >= 0 && y < 3) {
         if (squares[x][y]) {
-            std::cout << "You have already completed this level, you can no longer access it.\n";
+            std::cout << "You have already completed this level, you are free to move through it!\n";
         } else {
             if (x == 0 && y == 0) handleSquare00();
             else if (x == 0 && y == 1) handleSquare01();

@@ -1,19 +1,21 @@
 Project by: Matthew Zhang & Tony Li
 
 ============
-The objective is to create an Elden Ring open world game. This game has 10 maps (or areas) like Elden ring and when a user beats an area, the user can tp to any area even while they are completing a level but once they leave, the square of the level they are on gets reset (like an elden ring boss) but the other bosses (squares) that are beat gets saved so users can skip through the beat areas of the map. Progress is stored in 10 map objects. 
+The objective is to create an Elden Ring open world game. This game has 10 maps (or areas) like Elden ring, and each area has 9 squares (different parts of each map). The user can tp to any map even while they are completing a square, but once you leave, the square of the level they are on gets reset (like an elden ring boss) but the other bosses (squares) that you beat gets saved so users can skip through the beat areas of the map to access other parts. Progress is stored in 10 map objects, but if you die, YOU LOSE EVERYTHING. Read more to learn the quirk on teleportation. 
 ============
 
 Teleportation:
-Users can always /displaymap to get all the maps they can travel to and once they enter the code, they can travel there (like an elden ring map).
+- Users can always /displaymap to get all the maps you can travel to and once you enter the code, you can travel there (like an elden ring map).
+- However, the position you teleport to will be the same as the postition on the current map. EX: if you are in position (1,1) on current map, teleporting to another map still puts you at (1,1);
+- This limits your movement as you can not traverse the map freely as you are always prompted to beat whats on the current square. 
 
 Other commands:
-When you are traveling with an animation, you are hinted at commands to check your health and items in your inventory. 
+- When you are traveling with an animation, you are hinted at commands to check your health and items in your inventory. 
 
 Rules:
 - Once you lose all your health, all progress is lost at that square, you have to start over.
 - Items are rare but once you find them, you can use it to skip past attacks. 
-- When you decide to move away to another square, all progress is lost. That's the challening part! 
+- When you decide to move away to another square, all progress is lost. That's the challenging part! 
 - Once you beat the square, the number of square beat gets incremented, you can not try to beat the square again!
 
 How to win:

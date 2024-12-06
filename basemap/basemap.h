@@ -20,6 +20,8 @@ public:
     void startInputListener(); 
     void displayWithDelay(const std::string& message, int delayMs = 20); 
 
+    void displayMapWithPlayer(const std::array<std::array<bool, 3>, 3>& squares);
+
     std::string getCurrentInput(); 
     void moveNorth();          
     void moveSouth();               
@@ -33,6 +35,7 @@ public:
                     const std::string& winningMessage = "That's right! Congrats you did not lose any health!", 
                     const std::string& losingMessage = "Wrong!", 
                     const std::shared_ptr<BaseMap>& existingBaseMap = nullptr);
+    virtual bool uncompletedSquare() {return false;};
 };
 
 #endif

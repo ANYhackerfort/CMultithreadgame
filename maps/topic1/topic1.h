@@ -31,6 +31,7 @@ public:
     void handleSquare22();
 
     void handleCurrentSquare() override;
+    bool uncompletedSquare() override;
 };
 
 #endif // TOPIC1_H

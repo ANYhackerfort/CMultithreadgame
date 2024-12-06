@@ -70,7 +70,6 @@ BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<Advent
     } else {
         return nullptr;
     }
-    return nullptr;
 }
 
 void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMap>& map, std::string& mapNumber) {
@@ -101,18 +100,37 @@ void commandListener(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMa
             BaseMap* currentMap = processUserChoice(map, game, mapNumber);
             // std::cout << map.use_count();
             if (input == "movenorth") {
-                std::cout << "<<Moved North>>" << std::endl;
                 map->moveNorth();
+                if (map->uncompletedSquare()) {
+                    std::cout << "Cannot access! Staying at current square" << std::endl;
+                    map->moveSouth(); 
+                }
             } else if (input == "movesouth") {
-                std::cout << "<<moved South>>" << std::endl;
                 map->moveSouth();
+                if (map->uncompletedSquare()) {
+                    std::cout << "Cannot access! Staying at current square" << std::endl;
+                    map->moveNorth(); 
+                }                
             } else if (input == "movewest") {
-                std::cout << "<<moved West>>" << std::endl;
                 map->moveWest();
+                if (map->uncompletedSquare()) {
+                    std::cout << "Cannot access! Staying at current square" << std::endl;
+                    map->moveEast(); 
+                }
             } else if (input == "moveeast") {
-                std::cout << "<<moved East>>" << std::endl;
                 map->moveEast();
+                if (map->uncompletedSquare()) {
+                    std::cout << "Cannot access! Staying at current square" << std::endl;
+                    map->moveWest(); 
+                }
             }
+            if (currentMap) {
+                currentMap->handleCurrentSquare();
+            } else {
+                std::cout << "No valid map to handle." << std::endl;
+            }
+        } else if (input == "stay") {
+            BaseMap* currentMap = processUserChoice(map, game, mapNumber);
             if (currentMap) {
                 currentMap->handleCurrentSquare();
             } else {

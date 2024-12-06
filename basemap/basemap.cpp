@@ -10,6 +10,21 @@ BaseMap::BaseMap() : playerPosition({1, 1}) {}
 
 BaseMap::~BaseMap() {}
 
+void BaseMap::displayMapWithPlayer(const std::array<std::array<bool, 3>, 3>& squares) {
+    std::cout << "Map Squares:\n";
+    for (int row = 0; row < squares.size(); ++row) {
+        for (int col = 0; col < squares[row].size(); ++col) {
+            if (playerPosition.first == row && playerPosition.second == col) {
+                std::cout << (squares[row][col] ? "[XO]" : "[O]") << " ";
+            } else {
+                std::cout << (squares[row][col] ? "[X]" : "[ ]") << " ";
+            }
+        }
+        std::cout << "\n";
+    }
+    std::cout << std::endl;
+}
+
 void BaseMap::displayWithDelay(const std::string& message, int delayMs) {
     std::cout << message << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(delayMs));
@@ -18,6 +33,7 @@ void BaseMap::displayWithDelay(const std::string& message, int delayMs) {
 void BaseMap::moveNorth() {
     if (playerPosition.first > 0) {
         playerPosition.first--;
+        std::cout << "<<Moved North>>" << std::endl;
     } else {
         std::cout << "You hit an invisible wall to the north.\n";
     }
@@ -26,6 +42,7 @@ void BaseMap::moveNorth() {
 void BaseMap::moveSouth() {
     if (playerPosition.first < 2) {
         playerPosition.first++;
+        std::cout << "<<Moved South>>" << std::endl;
     } else {
         std::cout << "You hit an invisible wall to the south.\n";
     }
@@ -34,6 +51,7 @@ void BaseMap::moveSouth() {
 void BaseMap::moveWest() {
     if (playerPosition.second > 0) {
         playerPosition.second--;
+        std::cout << "<<Moved West>>" << std::endl;
     } else {
         std::cout << "You hit an invisible wall to the west.\n";
     }
@@ -42,6 +60,7 @@ void BaseMap::moveWest() {
 void BaseMap::moveEast() {
     if (playerPosition.second < 2) {
         playerPosition.second++;
+        std::cout << "<<Moved East>>" << std::endl;
     } else {
         std::cout << "You hit an invisible wall to the east.\n";
     }
