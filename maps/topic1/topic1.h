@@ -30,6 +30,7 @@ public:
     void handleSquare21();
     void handleSquare22();
 
+    void displayMapWithPlayerI();
     void handleCurrentSquare() override;
     bool uncompletedSquare() override;
 };

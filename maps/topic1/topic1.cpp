@@ -19,13 +19,16 @@ Topic1::~Topic1() {
 
 }
 
+void Topic1::displayMapWithPlayerI() { 
+    displayMapWithPlayer(squares, baseMap);
+}
+
 bool Topic1::uncompletedSquare() {
     return !squares[baseMap->playerPosition.first][baseMap->playerPosition.second];
 }
 
 void Topic1::handleSquare00() {
     displayMapWithPlayer(squares, baseMap);
-
 }
 
 void Topic1::handleSquare01() {
@@ -112,8 +115,6 @@ void Topic1::handleCurrentSquare() {
             else if (x == 2 && y == 0) handleSquare20();
             else if (x == 2 && y == 1) handleSquare21();
             else if (x == 2 && y == 2) handleSquare22();
-
-            squares[x][y] = false;
         }
     } else {
         std::cout << "Invalid position.\n";

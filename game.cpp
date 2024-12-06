@@ -47,6 +47,8 @@ void deleteMaps() {
     delete topic1Map;
 }
 
+
+
 BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game, std::string& mapNumber) {
     if (mapNumber == "1") {
         std::cout << "Arrived at Standard Library Containers (map, vector, etc.)\n";
@@ -84,6 +86,28 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
             std::cout << "Transporting to... ";
             game->displayTopicsByID(userChoice);
             displayLoadingScreen();
+            if(userChoice=="1"){//make these for all topics
+                std::cout<< "Arrived at Standard Library Containers (map, vector, etc.)\n\n";
+                topic1Map->displayMapWithPlayerI();
+            }else if(userChoice=="2"){
+                std::cout << "Arrived at Custom Template Class\n";
+            }else if(userChoice=="3"){
+                
+            }else if(userChoice=="4"){
+
+            }else if(userChoice=="5"){
+                
+            }else if(userChoice=="6"){
+                
+            }else if(userChoice=="7"){
+                
+            }else if(userChoice=="8"){
+                
+            }else if(userChoice=="9"){
+                
+            }else if(userChoice=="10"){
+                
+            }
             mapNumber = userChoice;
             break;
         } else {
@@ -141,11 +165,11 @@ void commandListener(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMa
         }
 
         if (!input.empty() && input[0] == '/') {
-            if (input == "/stats") {
+            if (input == "/stats"|| input == "/s"||input == "/health"||input == "/h") {
                 game->displayStats();
-            } else if (input == "/displayinventory") {
+            } else if (input == "/displayinventory"|| input =="/i"|| input =="/inventory") {
                 game->displayInventory();
-            } else if (input == "/displaymap") {
+            } else if ((input == "/displaymap")|| (input == "/m")||(input == "/map")) {
                 game->displayTopics();
                 handleMapSelection(game, map, mapNumber);
             } else {
