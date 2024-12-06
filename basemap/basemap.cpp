@@ -4,7 +4,8 @@
 #include <string>
 #include <algorithm>
 #include <queue>
-#include<memory>
+#include <memory>
+
 typedef std::pair<int, int> location; 
 BaseMap::BaseMap() : playerPosition({1, 1}) {}
 
