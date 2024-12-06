@@ -8,12 +8,12 @@
 #include <memory>
 class AdventureGame {
 protected:
-    int health;
     std::vector<std::string> inventory;
     std::unordered_map<std::string, std::string> topics;
 
 
 public:
+    int health;
     int completedSquares = 0; //im too lazy
     AdventureGame();
     virtual ~AdventureGame() {}

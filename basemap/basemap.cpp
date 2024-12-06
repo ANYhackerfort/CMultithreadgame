@@ -120,7 +120,7 @@ bool BaseMap::validateChoice(const std::string& choice,
                              const std::string& rightChoice, 
                              const std::string& winningMessage, 
                              const std::string& losingMessage, 
-                             const std::shared_ptr<BaseMap>& existingBaseMap) {
+                             const std::shared_ptr<AdventureGame>& existingGame) {
     if (choice == rightChoice) {
         std::cout << winningMessage << std::endl;
         return true; 
@@ -128,10 +128,14 @@ bool BaseMap::validateChoice(const std::string& choice,
         return false; 
     } else {
         std::cout << losingMessage << " {-18 health!}" << std::endl;
-        if (existingBaseMap) {
-            existingBaseMap->health -= 18; // Adjust health only if existingBaseMap is valid
-            // std::cout<< existingBaseMap->health<<std::endl;
+        if (existingGame) {
+            
+            existingGame->health -= 18; // Adjust health only if existingBaseMap is valid
         }
         return false; 
     }
+}
+
+void BaseMap::incrementCompletedSquares(const std::shared_ptr<AdventureGame>& existingAdventureGame) {
+    existingAdventureGame->completedSquares++;
 }

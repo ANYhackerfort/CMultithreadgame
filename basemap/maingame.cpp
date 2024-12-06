@@ -1,4 +1,5 @@
 #include "maingame.h"
+#include "basemap.h"
 
 AdventureGame::AdventureGame() : health(100) {
     topics["1"] = "Standard Library Containers (map, vector, etc.)";

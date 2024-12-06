@@ -21,6 +21,7 @@ public:
     void displayWithDelay(const std::string& message, int delayMs = 20); 
 
     void displayMapWithPlayer(const std::array<std::array<bool, 3>, 3>& squares, const std::shared_ptr<BaseMap> baseMap);
+    void incrementCompletedSquares(const std::shared_ptr<AdventureGame>& existingAdventureGame);
 
     std::string getCurrentInput(); 
     void moveNorth();          
@@ -34,7 +35,7 @@ public:
                     const std::string& rightChoice, 
                     const std::string& winningMessage = "That's right! Congrats you did not lose any health!", 
                     const std::string& losingMessage = "Wrong!", 
-                    const std::shared_ptr<BaseMap>& existingBaseMap = nullptr);
+                    const std::shared_ptr<AdventureGame>& existingGame = nullptr);
     virtual bool uncompletedSquare() {return false;};
 };
 

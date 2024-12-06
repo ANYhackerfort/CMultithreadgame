@@ -47,9 +47,9 @@ void Topic1::handleSquare01() {
         displayWithDelay("[std::map] launches a weak attack: how to traverse a map BACKWARDS!", 1500); 
         printChoices("answers", "for (auto rit = myMap.sdfsdfsdf(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
             squares[0][1] = true; 
-            ++completedSquares;
+            incrementCompletedSquares(baseGame);
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
         } else {
