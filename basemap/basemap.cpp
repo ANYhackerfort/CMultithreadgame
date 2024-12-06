@@ -10,11 +10,11 @@ BaseMap::BaseMap() : playerPosition({1, 1}) {}
 
 BaseMap::~BaseMap() {}
 
-void BaseMap::displayMapWithPlayer(const std::array<std::array<bool, 3>, 3>& squares) {
+void BaseMap::displayMapWithPlayer(const std::array<std::array<bool, 3>, 3>& squares, const std::shared_ptr<BaseMap> baseMap) {
     std::cout << "Map Squares:\n";
     for (int row = 0; row < squares.size(); ++row) {
         for (int col = 0; col < squares[row].size(); ++col) {
-            if (playerPosition.first == row && playerPosition.second == col) {
+            if (baseMap->playerPosition.first == row && baseMap->playerPosition.second == col) {
                 std::cout << (squares[row][col] ? "[XO]" : "[O]") << " ";
             } else {
                 std::cout << (squares[row][col] ? "[X]" : "[ ]") << " ";

@@ -37,8 +37,10 @@ void displayLoadingScreen() {
     std::cout << std::endl;
 }
 
-void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game) {
-    topic1Map = new Topic1(map, game); 
+void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& game) {
+    if (topic1Map == nullptr) { 
+        topic1Map = new Topic1(map, game);
+    }
 }
 
 void deleteMaps() {

@@ -10,17 +10,17 @@
 typedef std::pair<int, int> location; 
 class BaseMap : public AdventureGame {
 protected:
-    std::pair<int, int> playerPosition; //track the player's current position
     std::queue<std::string> input;
 
 public:
+    std::pair<int, int> playerPosition; //lazy
     BaseMap();                       
     virtual ~BaseMap();     
 
     void startInputListener(); 
     void displayWithDelay(const std::string& message, int delayMs = 20); 
 
-    void displayMapWithPlayer(const std::array<std::array<bool, 3>, 3>& squares);
+    void displayMapWithPlayer(const std::array<std::array<bool, 3>, 3>& squares, const std::shared_ptr<BaseMap> baseMap);
 
     std::string getCurrentInput(); 
     void moveNorth();          

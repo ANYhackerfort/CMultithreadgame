@@ -20,16 +20,17 @@ Topic1::~Topic1() {
 }
 
 bool Topic1::uncompletedSquare() {
-    return !squares[playerPosition.first][playerPosition.second];
+    return !squares[baseMap->playerPosition.first][baseMap->playerPosition.second];
 }
 
 void Topic1::handleSquare00() {
+    displayMapWithPlayer(squares, baseMap);
 
 }
 
 void Topic1::handleSquare01() {
     std::cout << "You are on the Mountain.\n";
-    displayMapWithPlayer(squares);
+    displayMapWithPlayer(squares, baseMap);
     
     displayWithDelay("You have met up against [std::map]! the final Ohio boss of this level!", 1000); 
     displayWithDelay("[std::map] launches a weak attack: how to traverse a map BACKWARDS!", 1500); 
@@ -46,7 +47,7 @@ void Topic1::handleSquare01() {
         if(validateChoice(getCurrentInput(), "1")) {
             squares[0][1] = true; 
             ++completedSquares;
-            displayMapWithPlayer(squares);
+            displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
         } else {
             displayWithDelay("You lost, progress reset!");
@@ -58,30 +59,39 @@ void Topic1::handleSquare01() {
 
 void Topic1::handleSquare02() {
     std::cout << "You are by the River.\n";
+    displayMapWithPlayer(squares, baseMap);
+
 }
 
 void Topic1::handleSquare10() {
     std::cout << "You are in the Village.\n";
+    displayMapWithPlayer(squares, baseMap);
+
 }
 
 void Topic1::handleSquare11() {
     std::cout << "You are in the Castle.\n";
+    displayMapWithPlayer(squares, baseMap);
 }
 
 void Topic1::handleSquare12() {
     std::cout << "You are in the Cave.\n";
+    displayMapWithPlayer(squares, baseMap);
 }
 
 void Topic1::handleSquare20() {
     std::cout << "You are in the Field.\n";
+    displayMapWithPlayer(squares, baseMap);
 }
 
 void Topic1::handleSquare21() {
     std::cout << "You are by the Lake.\n";
+    displayMapWithPlayer(squares, baseMap);
 }
 
 void Topic1::handleSquare22() {
     std::cout << "You are in the Desert.\n";
+    displayMapWithPlayer(squares, baseMap);
 }
 
 void Topic1::handleCurrentSquare() {
