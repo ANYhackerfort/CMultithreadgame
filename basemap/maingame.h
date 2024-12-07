@@ -24,15 +24,16 @@ public:
 
     int returnHealth() const; 
     void displayStats() const;
-    void addItem(std::string& name, GameItem& item); 
+    void addItem(std::string& name, std::shared_ptr<GameItem> item);
 
-    void displayInventory () const; 
+    void displayInventory (std::string type = "") const; 
 
     void displayTopics() const;
 
     bool hasTopicsByID(std::string id) const; 
     void displayTopicsByID(std::string id) const; 
-
+    
+    void useItemByName(std::string name);
 };
 
-#endif // ADVENTURE_GAME_H
+#endif

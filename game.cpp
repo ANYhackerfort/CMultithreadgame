@@ -173,11 +173,15 @@ void commandListener(std::shared_ptr<AdventureGame>& game, std::shared_ptr<BaseM
         } else if (command == "use" && subCommand == "item") {
             try {
                 if (item == "apple") {
-                    std::cout << "You used an apple. It was delicious!" << std::endl;
-                } else if (item == "potion") {
-                    std::cout << "You used a potion. You feel rejuvenated!" << std::endl;
+                    game->useItemByName("apple"); 
+                } else if (item == "SmallHealthPotion") {
+                    game->useItemByName("SmallHealthPotion"); 
+                } else if (item == "HealthPotion") {
+                    game->useItemByName("HealthPotion"); 
+                } else if (item == "BigHealthPotion") {
+                    game->useItemByName("BigHealthPotion"); 
                 } else {
-                    throw std::invalid_argument("Invalid item: " + item);
+                    throw std::invalid_argument("Item does not exist: " + item);
                 }
             } catch (const std::invalid_argument& e) {
                 std::cerr << "Error: " << e.what() << std::endl;
@@ -185,15 +189,21 @@ void commandListener(std::shared_ptr<AdventureGame>& game, std::shared_ptr<BaseM
         } else if (!command.empty() && command[0] == '/') {
             try { 
                 if (!command.empty() && command[0] == '/') {
-                    if (input == "/stats" || input == "/s" || input == "/health" || input == "/h") {
+                    if (command == "/stats" || command == "/s" || command == "/health" || command == "/h") {
                         game->displayStats();
-                    } else if (input == "/displayinventory" || input == "/i" || input == "/inventory") {
-                        game->displayInventory();
-                    } else if (input == "/map" || input == "/m") {
+                    } else if (command == "/displayinventory" || command == "/i" || command == "/inventory")  {
+                        if (subCommand == "name") {
+                            game->displayInventory(subCommand);
+                        } else if (subCommand == "count") {
+                            game->displayInventory(subCommand);
+                        } else {
+                            game->displayInventory();
+                        }
+                    } else if (command == "/map" || command == "/m") {
                         game->displayTopics();
                         handleMapSelection(game, map, mapNumber);
                     } else {
-                        throw std::invalid_argument("Unrecognized command: " + input);
+                        throw std::invalid_argument("Unrecognized command: " + command);
                     }
                 } 
             } catch (const std::invalid_argument& e) {
@@ -231,7 +241,7 @@ int main() {
 
     std::cout << "\nDid you know you can type:\n";
     std::cout << "  - /stats to check completed squares and your other stats\n";
-    std::cout << "  - /i to see your inventory\n";
+    std::cout << "  - /i to see your inventory, /i name to sort by name, or /i count to sort by count.\n";
     std::cout << "  - /map to view the map\n";
 
     inputThread1.join();

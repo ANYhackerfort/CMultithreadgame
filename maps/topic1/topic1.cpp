@@ -50,13 +50,13 @@ void Topic1::handleSquare01() {
         startInputListener();
         if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
             squares[0][1] = true; 
-            ++completedSquares;
+            baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
             displayWithDelay("You got an item!");
-            Apple Apple; 
+            std::shared_ptr<Apple> appleItem = std::make_shared<Apple>();
             std::string apple = "apple"; 
-            baseGame->addItem(apple, Apple);
+            baseGame->addItem(apple, appleItem);
         } else {
             displayWithDelay("You lost, progress reset!");
         }

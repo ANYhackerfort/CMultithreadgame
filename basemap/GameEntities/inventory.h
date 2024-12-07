@@ -5,42 +5,40 @@
 #include <list>
 #include <vector>
 #include <string>
+#include <memory>
 #include <functional>
 #include "../Util/sort.h"
 
 template <typename T>
 class Inventory {
 private:
-    struct Node {
-        std::string key;
-        T value;
-        int count;
-    };
-
     std::size_t inventorySize;
-    std::vector<std::list<Node>> inventoryHashMap;
-    std::size_t numItems; 
+    std::vector<std::list<Util::Node<std::shared_ptr<T>>>> inventoryHashMap;
+    std::size_t numItems;
 
     size_t hashFunction(const std::string& key) const;
 
 public:
     Inventory(size_t size = 10);
 
-    void addItem(const std::string& key, const T& value);
+    void addItem(const std::string& key, const std::shared_ptr<T>& value);
 
     void removeItem(const std::string& key);
 
-    T* getItem(const std::string& key);
+    std::shared_ptr<T> getItem(const std::string& key);
 
     void displayItems(std::string type = "") const;
 
     void displaySortItemsIntoArrayName() const;
     void displaySortItemsIntoArrayCount() const;
+
+    bool healWithItem(const std::string& key, int& health);
 };
 
 // Constructor
 template <typename T>
-Inventory<T>::Inventory(size_t size) : inventorySize(size), inventoryHashMap(size), numItems(0){}
+Inventory<T>::Inventory(size_t size)
+    : inventorySize(size), inventoryHashMap(size), numItems(0) {}
 
 // Hash Function
 template <typename T>
@@ -51,7 +49,7 @@ size_t Inventory<T>::hashFunction(const std::string& key) const {
 
 // Add Item
 template <typename T>
-void Inventory<T>::addItem(const std::string& key, const T& value) {
+void Inventory<T>::addItem(const std::string& key, const std::shared_ptr<T>& value) {
     std::cout << "Added [" << key << "] to your inventory!" << std::endl;
     size_t index = hashFunction(key);
     for (auto& node : inventoryHashMap[index]) {
@@ -61,7 +59,7 @@ void Inventory<T>::addItem(const std::string& key, const T& value) {
         }
     }
     inventoryHashMap[index].push_back({key, value, 1});
-    numItems++; 
+    numItems++;
 }
 
 // Remove Item
@@ -76,22 +74,34 @@ void Inventory<T>::removeItem(const std::string& key) {
             } else {
                 it->count--;
             }
+            numItems--;
             return;
         }
     }
-    numItems--;
 }
 
 // Get Item
 template <typename T>
-T* Inventory<T>::getItem(const std::string& key) {
+std::shared_ptr<T> Inventory<T>::getItem(const std::string& key) {
     size_t index = hashFunction(key);
     for (auto& node : inventoryHashMap[index]) {
         if (node.key == key) {
-            return &node.value;
+            return node.value;
         }
     }
     return nullptr;
+}
+
+// Heal with Item
+template <typename T>
+bool Inventory<T>::healWithItem(const std::string& key, int& health) {
+    auto item = getItem(key);
+    if (item) {
+        item->healPlayer(health); // Calls derived method via polymorphism
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // Display Items
@@ -99,8 +109,7 @@ template <typename T>
 void Inventory<T>::displayItems(std::string type) const {
     if (numItems == 0) {
         std::cout << "You don't currently have any items in your Inventory!" << std::endl;
-    }
-    if (type == "") {
+    } else if (type == "") {
         for (const auto& bucket : inventoryHashMap) {
             for (const auto& node : bucket) {
                 std::cout << "Item Name: " << node.key << " || You have " << node.count << " of these!" << std::endl;
@@ -113,30 +122,34 @@ void Inventory<T>::displayItems(std::string type) const {
     }
 }
 
-// Sort Items by Name
+// Display Sort by Name
 template <typename T>
 void Inventory<T>::displaySortItemsIntoArrayName() const {
-    std::vector<std::string> items;
+    std::vector<Util::Node<std::shared_ptr<T>>> items;
     for (const auto& bucket : inventoryHashMap) {
         for (const auto& node : bucket) {
-            items.push_back(node.key);
+            items.push_back(node);
         }
     }
-    Util::quicksort<std::string>(items, 0, items.size() - 1); 
-
+    Util::quicksort(items, 0, numItems - 1, "name");
+    for (const auto& node : items) {
+        std::cout << "Item Name: " << node.key << " || You have " << node.count << " of these!" << std::endl;
+    }
 }
 
-// Sort Items by Count
+// Display Sort by Count
 template <typename T>
 void Inventory<T>::displaySortItemsIntoArrayCount() const {
-    std::vector<int> counts;
+    std::vector<Util::Node<std::shared_ptr<T>>> items;
     for (const auto& bucket : inventoryHashMap) {
         for (const auto& node : bucket) {
-            counts.push_back(node.count);
+            items.push_back(node);
         }
     }
-    Util::quicksort<int>(counts, 0, counts.size() - 1);
-
+    Util::quicksort(items, 0, items.size() - 1, "count");
+    for (const auto& node : items) {
+        std::cout << "Item Name: " << node.key << " || You have " << node.count << " of these!" << std::endl;
+    }
 }
 
-#endif // INVENTORY_H
+#endif

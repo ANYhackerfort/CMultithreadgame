@@ -1,40 +1,63 @@
 #ifndef GAME_ITEM_H
 #define GAME_ITEM_H
 
+#include <iostream>
+#include <vector>
+#include <memory>
+
 class GameItem {
 private:
-    int data; // Integer data
+    int data;
 
 public:
-    // Constructor
     GameItem(int d) : data(d) {}
 
-    // Getter
-    int getData() const { return data; }
+    virtual ~GameItem() = default; 
 
-    // Setter
+    int getData() const { return data; }
     void setData(int d) { data = d; }
+
+    virtual void healPlayer(int& health) const {
+        std::cout << "WHAT";
+        return;};
 };
 
-// Specialized Game Items
+// Derived classes
 class SmallHealthPotion : public GameItem {
 public:
-    SmallHealthPotion() : GameItem(10) {} // Restores 10 health points
+    SmallHealthPotion() : GameItem(10) {}
+
+    void healPlayer(int& health) const override {
+        health += getData();
+    }
 };
 
 class HealthPotion : public GameItem {
 public:
-    HealthPotion() : GameItem(20) {} // Restores 20 health points
+    HealthPotion() : GameItem(20) {}
+
+    void healPlayer(int& health) const override {
+        std::cout << "HEsdfsdfLLO";
+        health += getData();
+    }
 };
 
 class BigHealthPotion : public GameItem {
 public:
-    BigHealthPotion() : GameItem(40) {} // Restores 40 health points
+    BigHealthPotion() : GameItem(40) {}
+
+    void healPlayer(int& health) const override {
+        health += getData();
+    }
 };
 
 class Apple : public GameItem {
 public:
-    Apple() : GameItem(1) {} // Restores 1 health point
+    Apple() : GameItem(1) {}
+
+    void healPlayer(int& health) const override {
+        health += getData();
+    }
 };
 
-#endif // GAME_ITEM_H
+#endif

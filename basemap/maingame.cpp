@@ -21,24 +21,12 @@ void AdventureGame::displayStats() const {
     std::cout << "Squares Completed: " << completedSquares << std::endl;
 }
 
-void AdventureGame::addItem(std::string& name, GameItem& item) {
+void AdventureGame::addItem(std::string& name, std::shared_ptr<GameItem> item) {
     inventory.addItem(name, item);
-    // inventory.push_back(item);
-    // std::cout << "Added \"" << item << "\" to your inventory.\n";
-    // Util::quicksort <std::string> (inventory,0,inventory.size()-1);
 }
 
-void AdventureGame::displayInventory() const {
-    inventory.displayItems(); 
-    // std::cout << "Inventory: ";
-    // if (inventory.empty()) {
-    //     std::cout << "None\n";
-    // } else {
-    //     for (const auto& item : inventory) {
-    //         std::cout << item << " ";
-    //     }
-    //     std::cout << "\n";
-    // }
+void AdventureGame::displayInventory(std::string type) const {
+    inventory.displayItems(type); 
 }
 
 void AdventureGame::displayTopics() const { 
@@ -68,4 +56,14 @@ void AdventureGame::displayTopicsByID(std::string id) const {
 
 int AdventureGame::returnHealth() const {
     return health; 
+}
+
+void AdventureGame::useItemByName(std::string name) {
+    if(inventory.healWithItem(name, health)) {
+        std::cout << "You just used: " << name << " and healed you to [" << health << "]" << std::endl; 
+        inventory.removeItem(name);
+    } else {
+        std::cout << "You do not have this item!" << std::endl;
+    }
+    
 }

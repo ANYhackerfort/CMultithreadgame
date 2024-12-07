@@ -129,7 +129,7 @@ bool BaseMap::validateChoice(const std::string& choice,
     } else {
         std::cout << losingMessage << " {-18 health!}" << std::endl;
         if (existingBaseMap) {
-            existingBaseMap->health -= 18; // Adjust health only if existingBaseMap is valid
+            existingBaseMap->health -= 18;
             // std::cout<< existingBaseMap->health<<std::endl;
         }
         return false; 
