@@ -25,6 +25,10 @@ The whole code is written by us while referring to slides / past coding assignme
 
 How Topics Are Used:
 
+Extra:
+All of the topics are used in the corresponding maps.
+This is essentially a trivia game, topic 1 is in map 1, topic 2 is in map 2, etc. 
+
 1. Standard containers:
 used throughout all of the classes to store information of various types
 2. Custom Template Class:
@@ -32,16 +36,16 @@ inventory is a custom template class that is used to store the inventory informa
 3. Custom Namespace
 Util is a custom namespace that is used for a template quicksort function
 4. Classes with Constructor, Destructor, Assignment Operator
-
-5.
-
-6.
-
-7.
-
-8.
-
-9.
-
-10.
-
+The gameItem class has all three, all of the other classes have a constructor and destructor but no custom assignment operator, but there is still the default c++ assignment operator. 
+5. Lambda Functions
+We used a lambda function to display the loading screen. 
+6. Exception Handling
+For all commands, there are exception throws and catches to make sure all commands are valid
+7. Inheritance 
+basemap inherits from adventuregame, and each topic class inherits from basemap
+8. Virtual Functions or Abstract Classes
+handleCurrentSquare() in basemap class is virtual, so is all of the relevant destructors
+9. Hashing
+Our inventory is a custom hash table
+10. Sorting Algorithms
+there are options to sort the items in the inventory for different things. We used quicksort to have a low average time complexity. 
