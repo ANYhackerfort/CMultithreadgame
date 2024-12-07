@@ -49,3 +49,33 @@ handleCurrentSquare() in basemap class is virtual, so is all of the relevant des
 Our inventory is a custom hash table
 10. Sorting Algorithms
 there are options to sort the items in the inventory for different things. We used quicksort to have a low average time complexity. 
+
+#In depth:
+game.cpp/adventuregame.cpp/basegame.cpp/topic1.cpp/topic2.cpp...etc:
+    Topics Used:
+    4. loadmaps initializes all maps, deletemaps deletes all, TopicMaps have constructors and destructors
+    5. The displayAnimation function in handleMapSelection uses a lambda function 
+    6. Exception handling is extensively used for managing invalid user inputs
+    7. Topic1, Topic2... etc are derived from basemap class
+    8. virtual functions are implemented in basemap.cpp and maingame.cpp
+
+inventory.h:
+    Topics Used:
+    1.The class heavily utilizes std::vector and std::list 
+    2.This entire class is a custom template class
+    4.Constructor is defined
+
+    9.Hashing: Hashing is explicitly implemented in the hashFunction method, which uses std::hash to map keys to bucket indices.
+
+sort.h:
+    Topics used:
+    1.The std::vector container is central to the implementation of the sorting algorithm.
+    2.This is a custom template class(ish)
+    3.Util is a custom namespace defined for utility
+    10. quicksort is implemented here
+
+gameItem.h
+    Topics used:
+    4. Constructor, Destructor, and Assignment operator are all implemented in this class
+    7. The 4 items are inherited from GameItem class
+
