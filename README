@@ -23,6 +23,7 @@ How to win:
 
 The whole code is written by us while referring to slides / past coding assignments. We also referred to resources such as stack overflow for debugging for std::shared_ptrs and race conditions of having 2 threads (we just have 1 now, apprently its race conditioning the reading of the input conosle and the output console). 
 
+IMPORTANT:
 How Topics Are Used:
 
 Extra:
