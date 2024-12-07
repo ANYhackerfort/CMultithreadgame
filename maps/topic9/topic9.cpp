@@ -1,62 +1,63 @@
-#include "topic1.h"
+#include "topic9.h"
 #include "../../basemap/maingame.h"
 #include "../../basemap/basemap.h"
 #include <iostream>
 #include <memory>
-#include "../../basemap/GameEntities/gameItem.h"
 
-Topic1::Topic1()
+Topic9::Topic9()
     : baseMap(std::make_shared<BaseMap>()), // Create a new BaseMap using shared_ptr
       baseGame(std::make_shared<AdventureGame>()),
       squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {}
 
-Topic1::Topic1(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
+Topic9::Topic9(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
       squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
 }
 
-Topic1::~Topic1() {
+Topic9::~Topic9() {
 
 }
 
-void Topic1::displayMapWithPlayerI() { 
+void Topic9::displayMapWithPlayerI() { 
     displayMapWithPlayer(squares, baseMap);
 }
 
-bool Topic1::uncompletedSquare() {
+bool Topic9::uncompletedSquare() {
     return !squares[baseMap->playerPosition.first][baseMap->playerPosition.second];
 }
 
-void Topic1::handleSquare00() {
+void Topic9::handleSquare00() {
+    std::cout << "You are in the Void.\nThere is nothing here...\n";
+    displayMapWithPlayer(squares, baseMap);
+
+}
+
+void Topic9::handleSquare01() {
+    std::cout << "You are on the Mountain.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic1::handleSquare01() {
-    std::cout << "You are on the Mountain.\n";
+void Topic9::handleSquare02() {
+    std::cout << "You are by the River.\n";
     displayMapWithPlayer(squares, baseMap);
-    
-    displayWithDelay("You have met up against [std::map]! a sigma Ohio gnome boss of this level!", 1000); 
-    displayWithDelay("[std::map] launches a weak attack: how to traverse a map BACKWARDS!", 1500); 
 
-    printChoices("answers", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)","for (auto it = myMap.begin(); rit != myMap.end(); --it)","for (auto it = myMap.begin(); rit != myMap.end(); ++it)");
+    displayWithDelay("You have encountered a hash brown!", 1000); 
+    displayWithDelay("Hash brown launches a attack: Which of the following is a common technique used to handle hash collisions in a hash table?", 1500); 
+
+    printChoices("answers", "binary search","Double hashing", "Quicksort", "Graph Traversal");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
-        // displayWithDelay("You beat the square!");
+    if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
 
-        displayWithDelay("You have met up against [std::vector]! the final Ohio boss of this level!", 1000); 
-        displayWithDelay("[std::vector] launches a weak attack: Which of the following statements is true about std::vector in C++?", 1500); 
-        printChoices("answers", "std::vector has a fixed size that cannot be changed after initialization.", "Elements in a std::vector are stored contiguously in memory.","Accessing elements in a std::vector can only be done using iterators.","std::vector automatically manages memory and cannot cause memory leaks.");
+        // displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
+        displayWithDelay("Hash brown launches another attack: In hashing, a hash collision occurs when two different keys hash to the same index in a hash table.", 1500); 
+        printChoices("answers", "True","False");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "2","","",baseGame)) {
-            squares[0][1] = true; 
+        if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
+            squares[0][2] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
-            displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
-            displayWithDelay("You got an item!");
-            Apple Apple; 
-            std::string apple = "apple"; 
-            baseGame->addItem(apple, Apple);
+            displayWithDelay("You beat this boss (Marked in X)!, You are free to trasverse this level!");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
@@ -65,52 +66,49 @@ void Topic1::handleSquare01() {
     }
 }
 
-void Topic1::handleSquare02() {
-    std::cout << "You are by the River.\n";
-    displayMapWithPlayer(squares, baseMap);
-
-}
-
-void Topic1::handleSquare10() {
+void Topic9::handleSquare10() {
     std::cout << "You are in the Village.\n";
+    std::cout << "You found an item!\n";
     displayMapWithPlayer(squares, baseMap);
 
 }
 
-void Topic1::handleSquare11() {
+void Topic9::handleSquare11() {
     std::cout << "You are in the Castle.\n";
+    std::cout << "This is the starter square\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic1::handleSquare12() {
+void Topic9::handleSquare12() {
     std::cout << "You are in the Cave.\n";
+    displayWithDelay("There is nothing in the Cave.\n");
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic1::handleSquare20() {
+void Topic9::handleSquare20() {
     std::cout << "You are in the Field.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic1::handleSquare21() {
+void Topic9::handleSquare21() {
     std::cout << "You are by the Lake.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic1::handleSquare22() {
+void Topic9::handleSquare22() {
     std::cout << "You are in the Desert.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic1::handleCurrentSquare() {
+void Topic9::handleCurrentSquare() {
     auto position = baseMap->getCurrentLocaiton();
     int x = position.first;
     int y = position.second;
 
     if (x >= 0 && x < 3 && y >= 0 && y < 3) {
         if (squares[x][y]) {
-            displayMapWithPlayerI();
             std::cout << "You have already completed this level, you are free to move through it!\n";
+            displayMapWithPlayerI();
         } else {
             if (x == 0 && y == 0) handleSquare00();
             else if (x == 0 && y == 1) handleSquare01();

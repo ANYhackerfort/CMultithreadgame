@@ -89,7 +89,10 @@ void Topic7::handleSquare02() {
 
 void Topic7::handleSquare10() {
     std::cout << "You are in the Village.\n";
-    std::cout << "You found an item!\n";
+    displayWithDelay("You found an item!");
+    Apple Apple; 
+    std::string apple = "apple"; 
+    baseGame->addItem(apple, Apple);
     displayMapWithPlayer(squares, baseMap);
 
 }
@@ -108,6 +111,10 @@ void Topic7::handleSquare12() {
 
 void Topic7::handleSquare20() {
     std::cout << "You are in the Field.\n";
+    displayWithDelay("You found an item!");
+    Apple Apple; 
+    std::string apple = "apple"; 
+    baseGame->addItem(apple, Apple);
     displayMapWithPlayer(squares, baseMap);
 }
 
