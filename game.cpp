@@ -4,7 +4,9 @@
 #include "./maps/topic2/topic2.h"
 #include "./maps/topic3/topic3.h"
 #include "./maps/topic4/topic4.h"
+#include "./maps/topic5/topic5.h"
 #include "./maps/topic6/topic6.h"
+#include "./maps/topic7/topic7.h"
 #include "./basemap/basemap.h"
 #include <thread>
 #include <memory>
@@ -20,7 +22,9 @@ Topic1* topic1Map;
 Topic2* topic2Map;
 Topic3* topic3Map;
 Topic4* topic4Map;
+Topic5* topic5Map;
 Topic6* topic6Map; 
+Topic7* topic7Map; 
 
 void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& game) {
     if (topic1Map == nullptr) { 
@@ -28,7 +32,9 @@ void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& gam
         topic2Map = new Topic2(map, game);
         topic3Map = new Topic3(map, game);
         topic4Map = new Topic4(map, game);
+        topic5Map = new Topic5(map, game);
         topic6Map = new Topic6(map, game);
+        topic7Map = new Topic7(map, game);
     }
 }
 
@@ -37,7 +43,9 @@ void deleteMaps() {
     delete topic2Map;
     delete topic3Map;
     delete topic4Map;
+    delete topic5Map;
     delete topic6Map;
+    delete topic7Map;
 }
 
 BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game, std::string& mapNumber) {
@@ -56,11 +64,13 @@ BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<Advent
         return topic4Map;
     } else if (mapNumber == "5") {
         std::cout << "Arrived at Lambda Functions\n";
+        return topic5Map;
     } else if (mapNumber == "6") {
         std::cout << "Arrived at Exception Handling\n";
         return topic6Map;
     } else if (mapNumber == "7") {
         std::cout << "Arrived at Inheritance\n";
+        return topic7Map;
     } else if (mapNumber == "8") {
         std::cout << "Arrived at Virtual Functions or Abstract Classes\n";
     } else if (mapNumber == "9") {
@@ -115,12 +125,14 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
                     topic4Map->displayMapWithPlayerI();
                     std::cout << "Arrived at Classes with Constructor, Destructor, Assignment Operator\n";
                 }else if(userChoice=="5"){
-                    
+                    topic5Map->displayMapWithPlayerI();
+                    std::cout << "Arrived at Lambda Functions\n";
                 }else if(userChoice=="6"){
                     std::cout<<"Arrived at Exception Handling\n";
                     topic6Map->displayMapWithPlayerI();
                 }else if(userChoice=="7"){
-                    
+                    std::cout << "Arrived at Inheritance\n";
+                    topic7Map->displayMapWithPlayerI();
                 }else if(userChoice=="8"){
                     
                 }else if(userChoice=="9"){

@@ -35,15 +35,14 @@ void Topic4::handleSquare00() {
 void Topic4::handleSquare01() {
     std::cout << "You are on the Mountain.\n";
     std::cout << "You found an Item!\n";
-    Apple Apple; 
-    std::string apple = "apple"; 
-    baseGame->addItem(apple, Apple);
 }
 
 void Topic4::handleSquare02() {
     std::cout << "You are by the River.\n";
     displayMapWithPlayer(squares, baseMap);
-
+    Apple Apple; 
+    std::string apple = "apple"; 
+    baseGame->addItem(apple, Apple);
 }
 
 void Topic4::handleSquare10() {
@@ -64,24 +63,20 @@ void Topic4::handleSquare11() {
 void Topic4::handleSquare12() {
     std::cout << "You are in the Cave.\n";
     displayMapWithPlayer(squares, baseMap);
-    displayWithDelay("You have met up against [Custom Namespace]! the cave bata!", 1000); 
-    displayWithDelay("[Custom Namespace] launches a weak attack: How do you define a namespace in C++?", 1000); 
+    displayWithDelay("You have met up against a CLAS TUTOR! the caveman", 1000); 
+    displayWithDelay("CLAS TUTOR launches a weak attack: What does the default assignment operator perform in a class?", 1000); 
 
-    printChoices("answers", "namespace Name { ... }", "using Name { ... }","define Name { ... }","namespace { ... }");
+    printChoices("answers", "Deep copy", "Shallow copy","Deletes the object","None of the above");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
-        displayWithDelay("[Custom Namespace] launches a critical attack! namespace myNamespace = longNamespaceName;", 1000); 
-        printChoices("answers", "This is not allowed in C++", "This will create a copy of the namespace.","This creates an alias myNamespace for longNamespaceName.","This will result in an error.");
+    if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
+        displayWithDelay("CLAS TUTOR launches a critical attack! The special member function used to initialize an object when it is created is the ________.", 1000); 
+        printChoices("answers", "Class", "Assignment operator","Destructor","Constructor");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "3","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "4","","",baseMap)) {
             squares[1][2] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
-            displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
-            displayWithDelay("You got an item!");
-            HealthPotion HealthPotion;
-            std::string healthpotion = "Health Potion"; 
-            baseGame->addItem(healthpotion, HealthPotion);
+            displayWithDelay("You beat this boss (Marked in X)!, You are free to trasverse this level!");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
