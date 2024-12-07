@@ -63,7 +63,7 @@ void Topic6::handleSquare02() {
     std::cout << "You are by the River.\n";
     displayMapWithPlayer(squares, baseMap);
 
-    displayWithDelay("You have encountered a [exception handling]! A boss of this level!", 1000); 
+    displayWithDelay("You have encountered a [exception handling]! A hostile river snake!", 1000); 
     displayWithDelay("[exception handling] launches a weak attack: What kind of value can be thrown in C++?", 1500); 
 
     printChoices("answers", "java.lang.Exception", "only classes that inherit from std::exception","only ints","any type");

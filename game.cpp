@@ -53,6 +53,7 @@ void deleteMaps() {
 
 
 BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game, std::string& mapNumber) {
+    
     if (mapNumber == "1") {
         std::cout << "Arrived at Standard Library Containers (map, vector, etc.)\n";
         return topic1Map; 
@@ -85,38 +86,43 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
     while (true) {
         std::cout << "\nEnter the number of the map you'd like to transport to: ";
         std::cin >> userChoice;
+        try{
 
-        if (game->hasTopicsByID(userChoice)) {
-            std::cout << "Transporting to... ";
-            game->displayTopicsByID(userChoice);
-            displayLoadingScreen();
-            if(userChoice=="1"){//make these for all topics
-                std::cout<< "Arrived at Standard Library Containers (map, vector, etc.)\n\n";
-                topic1Map->displayMapWithPlayerI();
-            }else if(userChoice=="2"){
-                std::cout << "Arrived at Custom Template Class\n";
-            }else if(userChoice=="3"){
-                
-            }else if(userChoice=="4"){
+            if (game->hasTopicsByID(userChoice)) {
+                std::cout << "Transporting to... ";
+                game->displayTopicsByID(userChoice);
+                displayLoadingScreen();
+                if(userChoice=="1"){//make these for all topics
+                    std::cout<< "Arrived at Standard Library Containers (map, vector, etc.)\n\n";
+                    topic1Map->displayMapWithPlayerI();
+                }else if(userChoice=="2"){
+                    std::cout << "Arrived at Custom Template Class\n";
+                }else if(userChoice=="3"){
+                    
+                }else if(userChoice=="4"){
 
-            }else if(userChoice=="5"){
-                
-            }else if(userChoice=="6"){
-                std::cout<<"Arrived at Exception Handling\n";
-                topic6Map->displayMapWithPlayerI();
-            }else if(userChoice=="7"){
-                
-            }else if(userChoice=="8"){
-                
-            }else if(userChoice=="9"){
-                
-            }else if(userChoice=="10"){
-                
+                }else if(userChoice=="5"){
+                    
+                }else if(userChoice=="6"){
+                    std::cout<<"Arrived at Exception Handling\n";
+                    topic6Map->displayMapWithPlayerI();
+                }else if(userChoice=="7"){
+                    
+                }else if(userChoice=="8"){
+                    
+                }else if(userChoice=="9"){
+                    
+                }else if(userChoice=="10"){
+                    
+                }
+                mapNumber = userChoice;
+                break;
+            } else {
+                throw std::invalid_argument("Invalid map number");
             }
-            mapNumber = userChoice;
-            break;
-        } else {
-            std::cout << "Invalid map number. Please try again.\n";
+        } catch(const std::invalid_argument& e) {
+            std::cerr << "Error: " << e.what() << std::endl;
+            // Handle the invalid map number scenario by returning nullptr
         }
     }
 }
@@ -168,7 +174,7 @@ void commandListener(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMa
                 std::cout << "No valid map to handle." << std::endl;
             }
         }
-
+        try{
         if (!input.empty() && input[0] == '/') {
             if (input == "/stats"|| input == "/s"||input == "/health"||input == "/h") {
                 game->displayStats();
@@ -178,8 +184,12 @@ void commandListener(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMa
                 game->displayTopics();
                 handleMapSelection(game, map, mapNumber);
             } else {
-                std::cout << "Unknown command: " << input << std::endl;
+                throw std::invalid_argument("Invalid command: " + input);
             }
+        }
+        }
+        catch(const std::invalid_argument& e){
+            std::cerr << "Error: " << e.what() << std::endl;
         }
     }
 }
