@@ -31,8 +31,6 @@ void deleteMaps() {
     delete topic6Map;
 }
 
-
-
 BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game, std::string& mapNumber) {
     
     if (mapNumber == "1") {
@@ -129,38 +127,41 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
     }
 }
 
-void commandListener(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMap>& map, std::string& mapNumber) {
+void commandListener(std::shared_ptr<AdventureGame>& game, std::shared_ptr<BaseMap>& map, std::string& mapNumber) {
     std::string input;
-
     while (isGameRunning) {
         std::getline(std::cin, input);
         std::transform(input.begin(), input.end(), input.begin(), ::tolower);
-        if (input == "movenorth" || input == "movewest" || input == "movesouth" || input == "moveeast") {
+
+        std::istringstream iss(input);
+        std::string command, subCommand, item;
+        iss >> command >> subCommand >> item;
+
+        if (command == "movenorth" || command == "movewest" || command == "movesouth" || command == "moveeast") {
             BaseMap* currentMap = processUserChoice(map, game, mapNumber);
-            // std::cout << map.use_count();
-            if (input == "movenorth") {
+            if (command == "movenorth") {
                 map->moveNorth();
                 if (map->uncompletedSquare()) {
                     std::cout << "Cannot access! Staying at current square" << std::endl;
-                    map->moveSouth(); 
+                    map->moveSouth();
                 }
-            } else if (input == "movesouth") {
+            } else if (command == "movesouth") {
                 map->moveSouth();
                 if (map->uncompletedSquare()) {
                     std::cout << "Cannot access! Staying at current square" << std::endl;
-                    map->moveNorth(); 
-                }                
-            } else if (input == "movewest") {
+                    map->moveNorth();
+                }
+            } else if (command == "movewest") {
                 map->moveWest();
                 if (map->uncompletedSquare()) {
                     std::cout << "Cannot access! Staying at current square" << std::endl;
-                    map->moveEast(); 
+                    map->moveEast();
                 }
-            } else if (input == "moveeast") {
+            } else if (command == "moveeast") {
                 map->moveEast();
                 if (map->uncompletedSquare()) {
                     std::cout << "Cannot access! Staying at current square" << std::endl;
-                    map->moveWest(); 
+                    map->moveWest();
                 }
             }
             if (currentMap) {
@@ -168,29 +169,44 @@ void commandListener(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMa
             } else {
                 std::cout << "No valid map to handle." << std::endl;
             }
-        } else if (input == "stay") {
+        } else if (command == "stay") {
             BaseMap* currentMap = processUserChoice(map, game, mapNumber);
             if (currentMap) {
                 currentMap->handleCurrentSquare();
             } else {
                 std::cout << "No valid map to handle." << std::endl;
             }
-        }
-        try{
-            if (!input.empty() && input[0] == '/') {
-                if (input == "/stats"|| input == "/s"||input == "/health"||input == "/h") {
-                    game->displayStats();
-                } else if (input == "/displayinventory"|| input =="/i"|| input =="/inventory") {
-                    game->displayInventory();
-                } else if ((input == "/map")|| (input == "/m")||(input == "/map")) {
-                    game->displayTopics();
-                    handleMapSelection(game, map, mapNumber);
+        } else if (command == "use" && subCommand == "item") {
+            try {
+                if (item == "apple") {
+                    std::cout << "You used an apple. It was delicious!" << std::endl;
+                } else if (item == "potion") {
+                    std::cout << "You used a potion. You feel rejuvenated!" << std::endl;
                 } else {
-                    throw std::invalid_argument("Invalid command: " + input);
+                    throw std::invalid_argument("Invalid item: " + item);
                 }
+            } catch (const std::invalid_argument& e) {
+                std::cerr << "Error: " << e.what() << std::endl;
             }
-        } catch(const std::invalid_argument& e){
-            std::cerr << "Error: " << e.what() << std::endl;
+        } else if (!command.empty() && command[0] == '/') {
+            try { 
+                if (!command.empty() && command[0] == '/') {
+                    if (input == "/stats" || input == "/s" || input == "/health" || input == "/h") {
+                        game->displayStats();
+                    } else if (input == "/displayinventory" || input == "/i" || input == "/inventory") {
+                        game->displayInventory();
+                    } else if (input == "/map" || input == "/m") {
+                        game->displayTopics();
+                        handleMapSelection(game, map, mapNumber);
+                    } else {
+                        throw std::invalid_argument("Unrecognized command: " + input);
+                    }
+                } 
+            } catch (const std::invalid_argument& e) {
+                std::cerr << "Error: " << e.what() << std::endl;
+            }
+        } else if (!command.empty()){
+            std::cerr << "Error: Unrecognized game machanic: " << input << std::endl;
         }
     }
 }
@@ -221,8 +237,8 @@ int main() {
 
     std::cout << "\nDid you know you can type:\n";
     std::cout << "  - /stats to check completed squares and your other stats\n";
-    std::cout << "  - /displayinventory to see your inventory\n";
-    std::cout << "  - /displaymap to view the map\n";
+    std::cout << "  - /i to see your inventory\n";
+    std::cout << "  - /map to view the map\n";
 
     inputThread1.join();
     inputThread1.join();
