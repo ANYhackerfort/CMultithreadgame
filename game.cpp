@@ -2,6 +2,7 @@
 #include "./basemap/maingame.h"
 #include "./maps/topic1/topic1.h"
 #include "./maps/topic2/topic2.h"
+#include "./maps/topic3/topic3.h"
 #include "./maps/topic6/topic6.h"
 #include "./basemap/basemap.h"
 #include <thread>
@@ -9,18 +10,21 @@
 #include <atomic>
 #include <chrono>
 #include <algorithm>
+#include <sstream>
 
 std::atomic<bool> isGameRunning(true);
 
 //store all maps, dont forget to clean
 Topic1* topic1Map; 
 Topic2* topic2Map;
+Topic3* topic3Map;
 Topic6* topic6Map; 
 
 void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& game) {
     if (topic1Map == nullptr) { 
         topic1Map = new Topic1(map, game);
         topic2Map = new Topic2(map, game);
+        topic3Map = new Topic3(map, game);
         topic6Map = new Topic6(map, game);
     }
 }
@@ -28,6 +32,7 @@ void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& gam
 void deleteMaps() {
     delete topic1Map;
     delete topic2Map;
+    delete topic3Map;
     delete topic6Map;
 }
 
@@ -41,6 +46,7 @@ BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<Advent
         return topic2Map;
     } else if (mapNumber == "3") {
         std::cout << "Arrived at Custom Namespace\n";
+        return topic3Map;
     } else if (mapNumber == "4") {
         std::cout << "Arrived at Classes with Constructor, Destructor, Assignment Operator\n";
     } else if (mapNumber == "5") {
@@ -98,7 +104,8 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
                     topic2Map->displayMapWithPlayerI();
                     std::cout << "Arrived at Custom Template Class\n";
                 }else if(userChoice=="3"){
-                    
+                    topic3Map->displayMapWithPlayerI();
+                    std::cout << "Arrived at Custom Namespace\n";
                 }else if(userChoice=="4"){
 
                 }else if(userChoice=="5"){
@@ -216,7 +223,7 @@ void checkStatus(std::shared_ptr<AdventureGame>& game) {
         if (game->returnHealth() <= 0) {
             std::cout << "You have DIED! All Progress Lost!" << std::endl;
             isGameRunning = false; 
-        } else if (game->completedSquares >= 3) {
+        } else if (game->completedSquares >= 1) {
             std::cout << "You have WON! Thanks for playing!" << std::endl;
             isGameRunning = false; 
         }

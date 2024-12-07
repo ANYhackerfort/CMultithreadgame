@@ -64,7 +64,7 @@ void Topic6::handleSquare02() {
     displayMapWithPlayer(squares, baseMap);
 
     displayWithDelay("You have encountered a [exception handling]! A hostile river snake!", 1000); 
-    displayWithDelay("[exception handling] launches a weak attack: What kind of value can be thrown in C++?", 1500); 
+    displayWithDelay("[exception handling] launches a attack: What kind of value can be thrown in C++?", 1500); 
 
     printChoices("answers", "java.lang.Exception", "only classes that inherit from std::exception","only ints","any type");
     startInputListener(); //auto stops each time, you have to type this each time

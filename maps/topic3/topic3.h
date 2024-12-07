@@ -8,16 +8,16 @@
 #include <memory>
 #include <iostream>
 
-class Topic2 : public BaseMap{
+class Topic3 : public BaseMap{
 private:
     std::array<std::array<bool, 3>, 3> squares; 
     std::shared_ptr<BaseMap> baseMap; 
     std::shared_ptr<AdventureGame> baseGame; 
 
 public:
-    Topic2();
-    Topic2(std::shared_ptr<BaseMap>&  existingBaseMap, std::shared_ptr<AdventureGame>& existingAdventureGame);
-    ~Topic2();
+    Topic3();
+    Topic3(std::shared_ptr<BaseMap>&  existingBaseMap, std::shared_ptr<AdventureGame>& existingAdventureGame);
+    ~Topic3();
 
     //story implementation bla bla bla
     void handleSquare00();

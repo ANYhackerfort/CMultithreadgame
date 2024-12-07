@@ -87,7 +87,12 @@ void Topic2::handleSquare11() {
 
 void Topic2::handleSquare12() {
     std::cout << "You are in the Cave.\n";
+    std::cout << "You found an Item!\n";
+    Apple Apple; 
+    std::string apple = "apple"; 
+    baseGame->addItem(apple, Apple);
     displayMapWithPlayer(squares, baseMap);
+    
 }
 
 void Topic2::handleSquare20() {
