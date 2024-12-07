@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./basemap/maingame.h"
 #include "./maps/topic1/topic1.h"
+#include "./maps/topic6/topic6.h"
 #include "./basemap/basemap.h"
 #include <thread>
 #include <memory>
@@ -12,7 +13,7 @@ std::atomic<bool> isGameRunning(true);
 
 //store all maps, dont forget to clean
 Topic1* topic1Map; 
-
+Topic6* topic6Map; 
 void displayLoadingScreen() {
     std::cout << "\nDid you know you can type:\n";
     std::cout << "  - /lookuphealth to check your health stats\n";
@@ -32,7 +33,7 @@ void displayLoadingScreen() {
 
     for (const auto& frame : loadingAnimation) {
         std::cout << "\r" << frame << std::flush;
-        std::this_thread::sleep_for(std::chrono::milliseconds(500)); 
+        std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
     }
     std::cout << std::endl;
 }
@@ -40,16 +41,19 @@ void displayLoadingScreen() {
 void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& game) {
     if (topic1Map == nullptr) { 
         topic1Map = new Topic1(map, game);
+        topic6Map = new Topic6(map, game);
     }
 }
 
 void deleteMaps() {
     delete topic1Map;
+    delete topic6Map;
 }
 
 
 
 BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game, std::string& mapNumber) {
+    
     if (mapNumber == "1") {
         std::cout << "Arrived at Standard Library Containers (map, vector, etc.)\n";
         return topic1Map; 
@@ -63,6 +67,7 @@ BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<Advent
         std::cout << "Arrived at Lambda Functions\n";
     } else if (mapNumber == "6") {
         std::cout << "Arrived at Exception Handling\n";
+        return topic6Map;
     } else if (mapNumber == "7") {
         std::cout << "Arrived at Inheritance\n";
     } else if (mapNumber == "8") {
@@ -81,37 +86,43 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
     while (true) {
         std::cout << "\nEnter the number of the map you'd like to transport to: ";
         std::cin >> userChoice;
+        try{
 
-        if (game->hasTopicsByID(userChoice)) {
-            std::cout << "Transporting to... ";
-            game->displayTopicsByID(userChoice);
-            displayLoadingScreen();
-            if(userChoice=="1"){//make these for all topics
-                std::cout<< "Arrived at Standard Library Containers (map, vector, etc.)\n\n";
-                topic1Map->displayMapWithPlayerI();
-            }else if(userChoice=="2"){
-                std::cout << "Arrived at Custom Template Class\n";
-            }else if(userChoice=="3"){
-                
-            }else if(userChoice=="4"){
+            if (game->hasTopicsByID(userChoice)) {
+                std::cout << "Transporting to... ";
+                game->displayTopicsByID(userChoice);
+                displayLoadingScreen();
+                if(userChoice=="1"){//make these for all topics
+                    std::cout<< "Arrived at Standard Library Containers (map, vector, etc.)\n\n";
+                    topic1Map->displayMapWithPlayerI();
+                }else if(userChoice=="2"){
+                    std::cout << "Arrived at Custom Template Class\n";
+                }else if(userChoice=="3"){
+                    
+                }else if(userChoice=="4"){
 
-            }else if(userChoice=="5"){
-                
-            }else if(userChoice=="6"){
-                
-            }else if(userChoice=="7"){
-                
-            }else if(userChoice=="8"){
-                
-            }else if(userChoice=="9"){
-                
-            }else if(userChoice=="10"){
-                
+                }else if(userChoice=="5"){
+                    
+                }else if(userChoice=="6"){
+                    std::cout<<"Arrived at Exception Handling\n";
+                    topic6Map->displayMapWithPlayerI();
+                }else if(userChoice=="7"){
+                    
+                }else if(userChoice=="8"){
+                    
+                }else if(userChoice=="9"){
+                    
+                }else if(userChoice=="10"){
+                    
+                }
+                mapNumber = userChoice;
+                break;
+            } else {
+                throw std::invalid_argument("Invalid map number");
             }
-            mapNumber = userChoice;
-            break;
-        } else {
-            std::cout << "Invalid map number. Please try again.\n";
+        } catch(const std::invalid_argument& e) {
+            std::cerr << "Error: " << e.what() << std::endl;
+            // Handle the invalid map number scenario by returning nullptr
         }
     }
 }
@@ -163,7 +174,7 @@ void commandListener(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMa
                 std::cout << "No valid map to handle." << std::endl;
             }
         }
-
+        try{
         if (!input.empty() && input[0] == '/') {
             if (input == "/stats"|| input == "/s"||input == "/health"||input == "/h") {
                 game->displayStats();
@@ -173,8 +184,12 @@ void commandListener(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMa
                 game->displayTopics();
                 handleMapSelection(game, map, mapNumber);
             } else {
-                std::cout << "Unknown command: " << input << std::endl;
+                throw std::invalid_argument("Invalid command: " + input);
             }
+        }
+        }
+        catch(const std::invalid_argument& e){
+            std::cerr << "Error: " << e.what() << std::endl;
         }
     }
 }

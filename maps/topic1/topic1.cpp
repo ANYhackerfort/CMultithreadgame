@@ -40,18 +40,20 @@ void Topic1::handleSquare01() {
 
     printChoices("answers", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "1")) {
+    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
         // displayWithDelay("You beat the square!");
 
         displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
         displayWithDelay("[std::map] launches a weak attack: how to traverse a map BACKWARDS!", 1500); 
         printChoices("answers", "for (auto rit = myMap.sdfsdfsdf(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "1")) {
+        if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
             squares[0][1] = true; 
             ++completedSquares;
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
+            displayWithDelay("You got an item!");
+            baseGame->addItem("potion");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
@@ -104,6 +106,7 @@ void Topic1::handleCurrentSquare() {
 
     if (x >= 0 && x < 3 && y >= 0 && y < 3) {
         if (squares[x][y]) {
+            displayMapWithPlayerI();
             std::cout << "You have already completed this level, you are free to move through it!\n";
         } else {
             if (x == 0 && y == 0) handleSquare00();
