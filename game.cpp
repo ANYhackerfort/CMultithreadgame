@@ -3,6 +3,7 @@
 #include "./maps/topic1/topic1.h"
 #include "./maps/topic2/topic2.h"
 #include "./maps/topic3/topic3.h"
+#include "./maps/topic4/topic4.h"
 #include "./maps/topic6/topic6.h"
 #include "./basemap/basemap.h"
 #include <thread>
@@ -18,6 +19,7 @@ std::atomic<bool> isGameRunning(true);
 Topic1* topic1Map; 
 Topic2* topic2Map;
 Topic3* topic3Map;
+Topic4* topic4Map;
 Topic6* topic6Map; 
 
 void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& game) {
@@ -25,6 +27,7 @@ void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& gam
         topic1Map = new Topic1(map, game);
         topic2Map = new Topic2(map, game);
         topic3Map = new Topic3(map, game);
+        topic4Map = new Topic4(map, game);
         topic6Map = new Topic6(map, game);
     }
 }
@@ -33,6 +36,7 @@ void deleteMaps() {
     delete topic1Map;
     delete topic2Map;
     delete topic3Map;
+    delete topic4Map;
     delete topic6Map;
 }
 
@@ -49,6 +53,7 @@ BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<Advent
         return topic3Map;
     } else if (mapNumber == "4") {
         std::cout << "Arrived at Classes with Constructor, Destructor, Assignment Operator\n";
+        return topic4Map;
     } else if (mapNumber == "5") {
         std::cout << "Arrived at Lambda Functions\n";
     } else if (mapNumber == "6") {
@@ -107,7 +112,8 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
                     topic3Map->displayMapWithPlayerI();
                     std::cout << "Arrived at Custom Namespace\n";
                 }else if(userChoice=="4"){
-
+                    topic4Map->displayMapWithPlayerI();
+                    std::cout << "Arrived at Classes with Constructor, Destructor, Assignment Operator\n";
                 }else if(userChoice=="5"){
                     
                 }else if(userChoice=="6"){
@@ -221,10 +227,10 @@ void commandListener(std::shared_ptr<AdventureGame>& game, std::shared_ptr<BaseM
 void checkStatus(std::shared_ptr<AdventureGame>& game) {
     while (isGameRunning) {
         if (game->returnHealth() <= 0) {
-            std::cout << "You have DIED! All Progress Lost!" << std::endl;
+            std::cout << "You have DIED! All Progress Lost! Type Anything to quit game!" << std::endl;
             isGameRunning = false; 
-        } else if (game->completedSquares >= 1) {
-            std::cout << "You have WON! Thanks for playing!" << std::endl;
+        } else if (game->completedSquares > 10) {
+            std::cout << "You have WON! Thanks for playing! Type Anything to quit game!" << std::endl;
             isGameRunning = false; 
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(100));

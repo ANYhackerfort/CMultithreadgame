@@ -1,38 +1,38 @@
-#include "topic3.h"
+#include "topic4.h"
 #include "../../basemap/maingame.h"
 #include "../../basemap/basemap.h"
 #include <iostream>
 #include <memory>
 #include "../../basemap/GameEntities/gameItem.h"
 
-Topic3::Topic3()
+Topic4::Topic4()
     : baseMap(std::make_shared<BaseMap>()), // Create a new BaseMap using shared_ptr
       baseGame(std::make_shared<AdventureGame>()),
       squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {}
 
-Topic3::Topic3(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
+Topic4::Topic4(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
       squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
 }
 
-Topic3::~Topic3() {
+Topic4::~Topic4() {
 
 }
 
-void Topic3::displayMapWithPlayerI() { 
+void Topic4::displayMapWithPlayerI() { 
     displayMapWithPlayer(squares, baseMap);
 }
 
-bool Topic3::uncompletedSquare() {
+bool Topic4::uncompletedSquare() {
     return !squares[baseMap->playerPosition.first][baseMap->playerPosition.second];
 }
 
-void Topic3::handleSquare00() {
+void Topic4::handleSquare00() {
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic3::handleSquare01() {
+void Topic4::handleSquare01() {
     std::cout << "You are on the Mountain.\n";
     std::cout << "You found an Item!\n";
     Apple Apple; 
@@ -40,19 +40,19 @@ void Topic3::handleSquare01() {
     baseGame->addItem(apple, Apple);
 }
 
-void Topic3::handleSquare02() {
+void Topic4::handleSquare02() {
     std::cout << "You are by the River.\n";
     displayMapWithPlayer(squares, baseMap);
 
 }
 
-void Topic3::handleSquare10() {
+void Topic4::handleSquare10() {
     std::cout << "You are in the Village.\n";
     displayMapWithPlayer(squares, baseMap);
     
 }
 
-void Topic3::handleSquare11() {
+void Topic4::handleSquare11() {
     std::cout << "You are in the Castle.\n";
     displayWithDelay("You found an item!");
     Apple Apple; 
@@ -61,7 +61,7 @@ void Topic3::handleSquare11() {
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic3::handleSquare12() {
+void Topic4::handleSquare12() {
     std::cout << "You are in the Cave.\n";
     displayMapWithPlayer(squares, baseMap);
     displayWithDelay("You have met up against [Custom Namespace]! the cave bata!", 1000); 
@@ -90,22 +90,22 @@ void Topic3::handleSquare12() {
     }
 }
 
-void Topic3::handleSquare20() {
+void Topic4::handleSquare20() {
     std::cout << "You are in the Field.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic3::handleSquare21() {
+void Topic4::handleSquare21() {
     std::cout << "You are by the Lake.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic3::handleSquare22() {
+void Topic4::handleSquare22() {
     std::cout << "You are in the Desert.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic3::handleCurrentSquare() {
+void Topic4::handleCurrentSquare() {
     auto position = baseMap->getCurrentLocaiton();
     int x = position.first;
     int y = position.second;

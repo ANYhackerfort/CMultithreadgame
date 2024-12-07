@@ -36,21 +36,21 @@ void Topic1::handleSquare01() {
     std::cout << "You are on the Mountain.\n";
     displayMapWithPlayer(squares, baseMap);
     
-    displayWithDelay("You have met up against [std::map]! the final Ohio boss of this level!", 1000); 
+    displayWithDelay("You have met up against [std::map]! the final Ohio gnome boss of this level!", 1000); 
     displayWithDelay("[std::map] launches a weak attack: how to traverse a map BACKWARDS!", 1500); 
 
     printChoices("answers", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+    if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
         // displayWithDelay("You beat the square!");
 
         displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
         displayWithDelay("[std::map] launches a weak attack: how to traverse a map BACKWARDS!", 1500); 
         printChoices("answers", "for (auto rit = myMap.sdfsdfsdf(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
             squares[0][1] = true; 
-            ++completedSquares;
+            baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
             displayWithDelay("You got an item!");

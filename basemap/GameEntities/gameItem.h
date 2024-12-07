@@ -3,38 +3,44 @@
 
 class GameItem {
 private:
-    int data; // Integer data
+    int data; 
 
 public:
-    // Constructor
-    GameItem(int d) : data(d) {}
 
-    // Getter
+    GameItem(int d) : data(d) {}
+    
+    GameItem& operator=(const GameItem& other) {
+        if (this != &other) {
+            this->data = other.data; 
+        }
+        return *this; 
+    }
+
     int getData() const { return data; }
 
-    // Setter
+
     void setData(int d) { data = d; }
 };
 
-// Specialized Game Items
+
 class SmallHealthPotion : public GameItem {
 public:
-    SmallHealthPotion() : GameItem(10) {} // Restores 10 health points
+    SmallHealthPotion() : GameItem(10) {} 
 };
 
 class HealthPotion : public GameItem {
 public:
-    HealthPotion() : GameItem(20) {} // Restores 20 health points
+    HealthPotion() : GameItem(20) {} 
 };
 
 class BigHealthPotion : public GameItem {
 public:
-    BigHealthPotion() : GameItem(40) {} // Restores 40 health points
+    BigHealthPotion() : GameItem(40) {} 
 };
 
 class Apple : public GameItem {
 public:
-    Apple() : GameItem(1) {} // Restores 1 health point
+    Apple() : GameItem(1) {} 
 };
 
-#endif // GAME_ITEM_H
+#endif 

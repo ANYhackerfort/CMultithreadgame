@@ -3,7 +3,7 @@ CXXFLAGS = -std=c++17
 
 all: game 
 
-game: game.o maingame.o basemap.o topic1.o topic2.o topic3.o topic6.o 
+game: game.o maingame.o basemap.o topic1.o topic2.o topic3.o topic4.o topic6.o 
 	$(CXX) $(CXXFLAGS) -o $@ $^
 	./game
 
@@ -32,6 +32,9 @@ topic2.o: maps/topic2/topic2.cpp maps/topic2/topic2.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 topic3.o: maps/topic3/topic3.cpp maps/topic3/topic3.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+topic4.o: maps/topic4/topic4.cpp maps/topic4/topic4.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 topic6.o: maps/topic6/topic6.cpp maps/topic6/topic6.h

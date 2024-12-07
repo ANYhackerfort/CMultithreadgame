@@ -61,7 +61,7 @@ void Topic2::handleSquare10() {
         startInputListener();
         if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
             squares[1][0] = true; 
-            ++completedSquares;
+            baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
             displayWithDelay("You got an item!");
@@ -103,6 +103,30 @@ void Topic2::handleSquare20() {
 void Topic2::handleSquare21() {
     std::cout << "You are by the Lake.\n";
     displayMapWithPlayer(squares, baseMap);
+    displayWithDelay("You have met up against [Custom Template Class1]! the lake gnome!", 1000); 
+    displayWithDelay("[Custom Template Class1] launches a weak attack: A template class can have both template and non-template member functions.", 1000); 
+
+    printChoices("answers", "True", "False");
+    startInputListener(); //auto stops each time, you have to type this each time
+    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+        displayWithDelay("[Custom Template Class1] launches a critical attack! What symbol is used to specify a template parameter in C++?", 1000); 
+        printChoices("answers", "<>", "T","()","[]");
+        startInputListener();
+        if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+            squares[2][1] = true; 
+            baseGame->completedSquares++;
+            displayMapWithPlayer(squares, baseMap);
+            displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
+            displayWithDelay("You got an item!");
+            SmallHealthPotion SmallHealthPotion;
+            std::string smallhealthpotion = "Small Health Potion"; 
+            baseGame->addItem(smallhealthpotion, SmallHealthPotion);
+        } else {
+            displayWithDelay("You lost, progress reset!");
+        }
+    } else {
+        displayWithDelay("You lost, progress reset!");
+    }
 }
 
 void Topic2::handleSquare22() {
