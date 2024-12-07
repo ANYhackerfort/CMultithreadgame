@@ -80,3 +80,16 @@ gameItem.h
     4. Constructor, Destructor, and Assignment operator are all implemented in this class
     7. The 4 items are inherited from GameItem class
 
+Hardships while making this project:
+    -Lots of bugs
+    -Template Classes are really hard to work with
+    -Tedious to update and change everything
+    -Template functions are really hard to work with
+    -Properly using threading
+    -Makefile Issues
+    -Lots of makefile Issues
+    -scuffed inheritance is hard to change after you already built something on it
+    -concepts were hard to come up with
+    -git merge/pull/update/branch/etc
+    -time restraints
+    
