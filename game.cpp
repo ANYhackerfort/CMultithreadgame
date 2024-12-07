@@ -14,29 +14,6 @@ std::atomic<bool> isGameRunning(true);
 //store all maps, dont forget to clean
 Topic1* topic1Map; 
 Topic6* topic6Map; 
-void displayLoadingScreen() {
-    std::cout << "\nDid you know you can type:\n";
-    std::cout << "  - /lookuphealth to check your health stats\n";
-    std::cout << "  - /displayinventory to see your inventory\n";
-    std::cout << "  - /displaymap to view the map\n";
-    std::string loadingAnimation[] = {
-        "[*        ] Loading map...",
-        "[**       ] Loading map...",
-        "[***      ] Loading map...",
-        "[****     ] Loading map...",
-        "[*****    ] Loading map...",
-        "[******   ] Loading map...",
-        "[*******  ] Loading map...",
-        "[******** ] Loading map...",
-        "[*********] Loading complete!"
-    };
-
-    for (const auto& frame : loadingAnimation) {
-        std::cout << "\r" << frame << std::flush;
-        std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
-    }
-    std::cout << std::endl;
-}
 
 void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& game) {
     if (topic1Map == nullptr) { 
@@ -82,6 +59,25 @@ BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<Advent
 }
 
 void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMap>& map, std::string& mapNumber) {
+     auto displayAnimation = []() {
+        std::string loadingAnimation[] = {
+            "[*        ] Loading map...",
+            "[**       ] Loading map...",
+            "[***      ] Loading map...",
+            "[****     ] Loading map...",
+            "[*****    ] Loading map...",
+            "[******   ] Loading map...",
+            "[*******  ] Loading map...",
+            "[******** ] Loading map...",
+            "[*********] Loading complete!"
+        };
+        for (const auto& frame : loadingAnimation) {
+            std::cout << "\r" << frame << std::flush;
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+        std::cout << std::endl;
+    };
+
     std::string userChoice;
     while (true) {
         std::cout << "\nEnter the number of the map you'd like to transport to: ";
@@ -91,7 +87,7 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
             if (game->hasTopicsByID(userChoice)) {
                 std::cout << "Transporting to... ";
                 game->displayTopicsByID(userChoice);
-                displayLoadingScreen();
+                displayAnimation();
                 if(userChoice=="1"){//make these for all topics
                     std::cout<< "Arrived at Standard Library Containers (map, vector, etc.)\n\n";
                     topic1Map->displayMapWithPlayerI();
@@ -175,20 +171,19 @@ void commandListener(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMa
             }
         }
         try{
-        if (!input.empty() && input[0] == '/') {
-            if (input == "/stats"|| input == "/s"||input == "/health"||input == "/h") {
-                game->displayStats();
-            } else if (input == "/displayinventory"|| input =="/i"|| input =="/inventory") {
-                game->displayInventory();
-            } else if ((input == "/displaymap")|| (input == "/m")||(input == "/map")) {
-                game->displayTopics();
-                handleMapSelection(game, map, mapNumber);
-            } else {
-                throw std::invalid_argument("Invalid command: " + input);
+            if (!input.empty() && input[0] == '/') {
+                if (input == "/stats"|| input == "/s"||input == "/health"||input == "/h") {
+                    game->displayStats();
+                } else if (input == "/displayinventory"|| input =="/i"|| input =="/inventory") {
+                    game->displayInventory();
+                } else if ((input == "/map")|| (input == "/m")||(input == "/map")) {
+                    game->displayTopics();
+                    handleMapSelection(game, map, mapNumber);
+                } else {
+                    throw std::invalid_argument("Invalid command: " + input);
+                }
             }
-        }
-        }
-        catch(const std::invalid_argument& e){
+        } catch(const std::invalid_argument& e){
             std::cerr << "Error: " << e.what() << std::endl;
         }
     }
