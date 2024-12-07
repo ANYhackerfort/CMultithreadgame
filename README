@@ -23,3 +23,13 @@ How to win:
 
 The whole code is written by us while referring to slides / past coding assignments. We also referred to resources such as stack overflow for debugging for std::shared_ptrs and race conditions of having 2 threads (we just have 1 now, apprently its race conditioning the reading of the input conosle and the output console). 
 
+How Topics Are Used:
+
+1. Standard containers:
+used throughout all of the classes to store information of various types
+2. Custom Template Class:
+inventory is a custom template class that is used to store the inventory information of the player
+3. Custom Namespace
+Util is a custom namespace that is used for a template quicksort function
+4. Classes with Constructor, Destructor, Assignment Operator
+

@@ -89,17 +89,21 @@ void Topic6::handleSquare02() {
 
 void Topic6::handleSquare10() {
     std::cout << "You are in the Village.\n";
+    std::cout << "You found an item!\n";
+    baseGame->addItem("sausage");
     displayMapWithPlayer(squares, baseMap);
 
 }
 
 void Topic6::handleSquare11() {
     std::cout << "You are in the Castle.\n";
+    std::cout << "This is the starter square\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
 void Topic6::handleSquare12() {
     std::cout << "You are in the Cave.\n";
+    displayWithDelay("There is nothing in the Cave.\n");
     displayMapWithPlayer(squares, baseMap);
 }
 
