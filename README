@@ -21,17 +21,18 @@ Rules:
 How to win:
 - You only need to complete 10 squares of the ten maps, you can choose any. But once you lose all your health! GAME OVER EVERYTHING RESETS!
 
-The whole code is written by us while referring to slides / past coding assignments. We also referred to resources such as stack overflow for debugging for std::shared_ptrs and race conditions of having 2 threads (we just have 1 now, apprently its race conditioning the reading of the input conosle and the output console). 
+The whole code is written by us while referring to slides / past coding assignments. We also referred to resources such as stack overflow for debugging for std::shared_ptrs and race conditions of having 2 threads (we just have 1 now for reading console inputs, apprently its race conditioning the reading of the input conosle and the output console). WS2 school was also extremely useful for expolaning template classes. Common makefile errors (EX: .h should not be compiled individually to o) are answered by stack-overflow. 
 
 IMPORTANT:
 How Topics Are Used:
 
 Extra:
-All of the topics are used in the corresponding maps.
+All of the topics are used in the corresponding maps. 
 This is essentially a trivia game, topic 1 is in map 1, topic 2 is in map 2, etc. 
+Each question is based on derived questions from class or homework. 
 
 1. Standard containers:
-used throughout all of the classes to store information of various types
+used throughout all of the classes to store information of various types: EX: Our custom hash map relies on vectors and lists (std from library). 
 2. Custom Template Class:
 inventory is a custom template class that is used to store the inventory information of the player
 3. Custom Namespace
@@ -39,17 +40,17 @@ Util is a custom namespace that is used for a template quicksort function
 4. Classes with Constructor, Destructor, Assignment Operator
 The gameItem class has all three, all of the other classes have a constructor and destructor but no custom assignment operator, but there is still the default c++ assignment operator. 
 5. Lambda Functions
-We used a lambda function to display the loading screen. 
+We used a lambda function to display the loading screen. We also used this in sorting so quicksort with template could sort based on object classes different items such as its count and name, instead of just sorting by string values or int. 
 6. Exception Handling
-For all commands, there are exception throws and catches to make sure all commands are valid
+For all commands, there are exception throws and catches to make sure all commands and other user inputs are valid with a std::exception classes. We also have nested exception throws to catch out of player scope errors. 
 7. Inheritance 
-basemap inherits from adventuregame, and each topic class inherits from basemap
+basemap inherits from adventuregame, and each topic class inherits from basemap to save import resources and make code reusability by centralizing shared functionality, ensuring consistent behavior across all topic classes, and reducing redundancy in the implementation
 8. Virtual Functions or Abstract Classes
 handleCurrentSquare() in basemap class is virtual, so is all of the relevant destructors
 9. Hashing
-Our inventory is a custom hash table
+Our inventory is a custom hash table with chaining (not probing) with a std::hash function. 
 10. Sorting Algorithms
-there are options to sort the items in the inventory for different things. We used quicksort to have a low average time complexity. 
+there are options to sort the items in the inventory for different things. We used quicksort to have a low average time complexity for when players want to view their items in ordered by NAME or orderd by COUNT. 
 
 #In depth:
 game.cpp/adventuregame.cpp/basegame.cpp/topic1.cpp/topic2.cpp...etc:
