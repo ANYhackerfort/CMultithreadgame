@@ -13,7 +13,16 @@ game.o: game.cpp
 maingame.o: basemap/maingame.cpp basemap/maingame.h 
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-basemap.o: basemap/basemap.cpp basemap/basemap.h basemap/Util/sort.h
+basemap.o: basemap/basemap.cpp basemap/basemap.h 
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# sort.o: basemap/Util/sort.h
+# 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# inventory.o: basemap/GameEntities/inventory.h
+# 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+gameItem.o: basemap/GameEntities/gameItem.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 topic1.o: maps/topic1/topic1.cpp maps/topic1/topic1.h

@@ -3,6 +3,7 @@
 #include "../../basemap/basemap.h"
 #include <iostream>
 #include <memory>
+#include "../../basemap/GameEntities/gameItem.h"
 
 Topic1::Topic1()
     : baseMap(std::make_shared<BaseMap>()), // Create a new BaseMap using shared_ptr
@@ -53,7 +54,9 @@ void Topic1::handleSquare01() {
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
             displayWithDelay("You got an item!");
-            baseGame->addItem("potion");
+            Apple Apple; 
+            std::string apple = "apple"; 
+            baseGame->addItem(apple, Apple);
         } else {
             displayWithDelay("You lost, progress reset!");
         }

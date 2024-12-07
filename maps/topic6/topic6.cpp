@@ -90,7 +90,6 @@ void Topic6::handleSquare02() {
 void Topic6::handleSquare10() {
     std::cout << "You are in the Village.\n";
     std::cout << "You found an item!\n";
-    baseGame->addItem("sausage");
     displayMapWithPlayer(squares, baseMap);
 
 }

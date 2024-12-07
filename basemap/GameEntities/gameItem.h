@@ -1,41 +1,40 @@
-#ifndef GAMEITEM_H
-#define GAMEITEM_H
-template <typename T>
+#ifndef GAME_ITEM_H
+#define GAME_ITEM_H
+
 class GameItem {
 private:
-    T data;  
+    int data; // Integer data
 
 public:
+    // Constructor
+    GameItem(int d) : data(d) {}
 
-    GameItem(T d) : data(d) {}
+    // Getter
+    int getData() const { return data; }
 
-
-    T getData() const { return data; }
-
-
-    void setData(const T& d) { data = d; }
+    // Setter
+    void setData(int d) { data = d; }
 };
-class SmallHealthPotion : public GameItem<int> {
+
+// Specialized Game Items
+class SmallHealthPotion : public GameItem {
 public:
-    SmallHealthPotion() : GameItem<int>(10) {}  
+    SmallHealthPotion() : GameItem(10) {} // Restores 10 health points
 };
 
-
-class HealthPotion : public GameItem<int> {
+class HealthPotion : public GameItem {
 public:
-    HealthPotion() : GameItem<int>(20) {}  
+    HealthPotion() : GameItem(20) {} // Restores 20 health points
 };
 
-
-class BigHealthPotion : public GameItem<int> {
+class BigHealthPotion : public GameItem {
 public:
-    BigHealthPotion() : GameItem<int>(40) {}  
+    BigHealthPotion() : GameItem(40) {} // Restores 40 health points
 };
 
-
-class Apple : public GameItem<int> {
+class Apple : public GameItem {
 public:
-    Apple() : GameItem<int>(1) {}  
+    Apple() : GameItem(1) {} // Restores 1 health point
 };
 
-#endif
+#endif // GAME_ITEM_H

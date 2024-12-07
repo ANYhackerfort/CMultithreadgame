@@ -6,12 +6,14 @@
 #include <vector>
 #include <unordered_map>
 #include <memory>
+#include "./GameEntities/inventory.h"
+#include "./GameEntities/gameItem.h"
+
 class AdventureGame {
 protected:
     int health;
-    std::vector<std::string> inventory;
+    Inventory<GameItem> inventory;
     std::unordered_map<std::string, std::string> topics;
-
 
 public:
     int completedSquares = 0; //im too lazy
@@ -20,7 +22,7 @@ public:
 
     int returnHealth() const; 
     void displayStats() const;
-    void addItem(const std::string& item); 
+    void addItem(std::string& name, GameItem& item); 
 
     void displayInventory () const; 
 
