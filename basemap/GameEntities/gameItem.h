@@ -7,14 +7,22 @@
 
 class GameItem {
 private:
-    int data;
+    int data; 
 
 public:
-    GameItem(int d) : data(d) {}
 
-    virtual ~GameItem() = default; 
+    GameItem(int d) : data(d) {}
+    
+    GameItem& operator=(const GameItem& other) {
+        if (this != &other) {
+            this->data = other.data; 
+        }
+        return *this; 
+    }
 
     int getData() const { return data; }
+
+
     void setData(int d) { data = d; }
 
     virtual void healPlayer(int& health) const {
@@ -37,7 +45,6 @@ public:
     HealthPotion() : GameItem(20) {}
 
     void healPlayer(int& health) const override {
-        std::cout << "HEsdfsdfLLO";
         health += getData();
     }
 };

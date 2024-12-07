@@ -1,55 +1,79 @@
-#include "topic1.h"
+#include "topic3.h"
 #include "../../basemap/maingame.h"
 #include "../../basemap/basemap.h"
 #include <iostream>
 #include <memory>
 #include "../../basemap/GameEntities/gameItem.h"
 
-Topic1::Topic1()
+Topic3::Topic3()
     : baseMap(std::make_shared<BaseMap>()), // Create a new BaseMap using shared_ptr
       baseGame(std::make_shared<AdventureGame>()),
       squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {}
 
-Topic1::Topic1(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
+Topic3::Topic3(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
       squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
 }
 
-Topic1::~Topic1() {
+Topic3::~Topic3() {
 
 }
 
-void Topic1::displayMapWithPlayerI() { 
+void Topic3::displayMapWithPlayerI() { 
     displayMapWithPlayer(squares, baseMap);
 }
 
-bool Topic1::uncompletedSquare() {
+bool Topic3::uncompletedSquare() {
     return !squares[baseMap->playerPosition.first][baseMap->playerPosition.second];
 }
 
-void Topic1::handleSquare00() {
+void Topic3::handleSquare00() {
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic1::handleSquare01() {
+void Topic3::handleSquare01() {
     std::cout << "You are on the Mountain.\n";
+    std::cout << "You found an Item!\n";
+    std::shared_ptr<Apple> appleItem = std::make_shared<Apple>();
+    std::string apple = "apple"; 
+    baseGame->addItem(apple, appleItem);
+}
+
+void Topic3::handleSquare02() {
+    std::cout << "You are by the River.\n";
+    displayMapWithPlayer(squares, baseMap);
+
+}
+
+void Topic3::handleSquare10() {
+    std::cout << "You are in the Village.\n";
     displayMapWithPlayer(squares, baseMap);
     
-    displayWithDelay("You have met up against [std::map]! a sigma Ohio gnome boss of this level!", 1000); 
-    displayWithDelay("[std::map] launches a weak attack: how to traverse a map BACKWARDS!", 1500); 
+}
 
-    printChoices("answers", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); ++rit)", "for (auto rit = myMap.rbegin(); rit != myMap.rend(); --rit)","for (auto it = myMap.begin(); rit != myMap.end(); --it)","for (auto it = myMap.begin(); rit != myMap.end(); ++it)");
+void Topic3::handleSquare11() {
+    std::cout << "You are in the Castle.\n";
+    displayWithDelay("You found an item!");
+    std::shared_ptr<Apple> appleItem = std::make_shared<Apple>();
+    std::string apple = "apple"; 
+    baseGame->addItem(apple, appleItem);
+}
+
+void Topic3::handleSquare12() {
+    std::cout << "You are in the Cave.\n";
+    displayMapWithPlayer(squares, baseMap);
+    displayWithDelay("You have met up against [Custom Namespace]! the cave bata!", 1000); 
+    displayWithDelay("[Custom Namespace] launches a weak attack: How do you define a namespace in C++?", 1000); 
+
+    printChoices("answers", "namespace Name { ... }", "using Name { ... }","define Name { ... }","namespace { ... }");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
-        // displayWithDelay("You beat the square!");
-
-        displayWithDelay("You have met up against [std::vector]! the final Ohio boss of this level!", 1000); 
-        displayWithDelay("[std::vector] launches a weak attack: Which of the following statements is true about std::vector in C++?", 1500); 
-        printChoices("answers", "std::vector has a fixed size that cannot be changed after initialization.", "Elements in a std::vector are stored contiguously in memory.","Accessing elements in a std::vector can only be done using iterators.","std::vector automatically manages memory and cannot cause memory leaks.");
+    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+        displayWithDelay("[Custom Namespace] launches a critical attack! namespace myNamespace = longNamespaceName;", 1000); 
+        printChoices("answers", "This is not allowed in C++", "This will create a copy of the namespace.","This creates an alias myNamespace for longNamespaceName.","This will result in an error.");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "2","","",baseGame)) {
-            squares[0][1] = true; 
+        if(validateChoice(getCurrentInput(), "3","","",baseMap)) {
+            squares[1][2] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
@@ -65,44 +89,22 @@ void Topic1::handleSquare01() {
     }
 }
 
-void Topic1::handleSquare02() {
-    std::cout << "You are by the River.\n";
-    displayMapWithPlayer(squares, baseMap);
-
-}
-
-void Topic1::handleSquare10() {
-    std::cout << "You are in the Village.\n";
-    displayMapWithPlayer(squares, baseMap);
-
-}
-
-void Topic1::handleSquare11() {
-    std::cout << "You are in the Castle.\n";
-    displayMapWithPlayer(squares, baseMap);
-}
-
-void Topic1::handleSquare12() {
-    std::cout << "You are in the Cave.\n";
-    displayMapWithPlayer(squares, baseMap);
-}
-
-void Topic1::handleSquare20() {
+void Topic3::handleSquare20() {
     std::cout << "You are in the Field.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic1::handleSquare21() {
+void Topic3::handleSquare21() {
     std::cout << "You are by the Lake.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic1::handleSquare22() {
+void Topic3::handleSquare22() {
     std::cout << "You are in the Desert.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic1::handleCurrentSquare() {
+void Topic3::handleCurrentSquare() {
     auto position = baseMap->getCurrentLocaiton();
     int x = position.first;
     int y = position.second;

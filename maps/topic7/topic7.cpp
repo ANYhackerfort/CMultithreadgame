@@ -1,51 +1,51 @@
-#include "topic6.h"
+#include "topic7.h"
 #include "../../basemap/maingame.h"
 #include "../../basemap/basemap.h"
 #include <iostream>
 #include <memory>
 
-Topic6::Topic6()
+Topic7::Topic7()
     : baseMap(std::make_shared<BaseMap>()), // Create a new BaseMap using shared_ptr
       baseGame(std::make_shared<AdventureGame>()),
       squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {}
 
-Topic6::Topic6(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
+Topic7::Topic7(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
       squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
 }
 
-Topic6::~Topic6() {
+Topic7::~Topic7() {
 
 }
 
-void Topic6::displayMapWithPlayerI() { 
+void Topic7::displayMapWithPlayerI() { 
     displayMapWithPlayer(squares, baseMap);
 }
 
-bool Topic6::uncompletedSquare() {
+bool Topic7::uncompletedSquare() {
     return !squares[baseMap->playerPosition.first][baseMap->playerPosition.second];
 }
 
-void Topic6::handleSquare00() {
+void Topic7::handleSquare00() {
     displayMapWithPlayer(squares, baseMap);
         
-    displayWithDelay("You have encountered [basics of exception handling]! A boss of this level!", 1000); 
-    displayWithDelay("[basics of exception handling] launches a weak attack: What is the purpose of exception handling in C++?", 1500); 
+    displayWithDelay("You have encountered grampa! A boss of this level!", 1000); 
+    displayWithDelay("grampa launches a weak attack: Inheritance allows a class to acquire properties and methods from another class.", 1500); 
 
-    printChoices("answers", "To terminate a program immediately when an error occurs", "To handle runtime errors in a structured and recoverable way","To debug compile-time errors","To improve code readability");
+    printChoices("answers", "True", "False");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
+    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
 
         // displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
-        displayWithDelay("[basics of exception handling] launches an attack: What happens if an exception is thrown but not caught in C++?", 1500); 
-        printChoices("answers", "The program terminates with an error message.","The exception is ignored.","The compiler resolves the exception automatically.","D. Undefined behavior occurs.");
+        displayWithDelay("gramps launches an attack: What is the name of the class being inherited from?", 1500); 
+        printChoices("answers", "Base class","Derived class","SigmaClass","All of the above");
         startInputListener();
         if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
             squares[0][0] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
-            displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
+            displayWithDelay("You beat this boss (Marked in X)!, You are free to trasverse this level!");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
@@ -54,31 +54,31 @@ void Topic6::handleSquare00() {
     }
 }
 
-void Topic6::handleSquare01() {
+void Topic7::handleSquare01() {
     std::cout << "You are on the Mountain.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic6::handleSquare02() {
+void Topic7::handleSquare02() {
     std::cout << "You are by the River.\n";
     displayMapWithPlayer(squares, baseMap);
 
-    displayWithDelay("You have encountered a [exception handling]! A hostile river snake!", 1000); 
-    displayWithDelay("[exception handling] launches a attack: What kind of value can be thrown in C++?", 1500); 
+    displayWithDelay("You have encountered a dad!", 1000); 
+    displayWithDelay("dad launches a attack: What happens if no access specifier is provided in inheritance?", 1500); 
 
-    printChoices("answers", "java.lang.Exception", "only classes that inherit from std::exception","only ints","any type");
+    printChoices("answers", "Public inheritance by default", "Private inheritance by default","Protected inheritance by default","No inheritance occurs");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "4","","",baseMap)) {
+    if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
 
         // displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
-        displayWithDelay("[exception handling] launches another attack: What is a correct minimal declaration of a trivial exception class?", 1500); 
-        printChoices("answers", "class exceptionClass{};","class MyException = public std::exception {};","class MyException { public: virtual const char* what() const noexcept; };","class MyException : std::exception {};");
+        displayWithDelay("dad launches another attack: What is the order of constructor calls in inheritance?", 1500); 
+        printChoices("answers", "Derived class constructor, then base class constructor","Base class constructor, then derived class constructor","Constructors are called simultaneously","None of the above");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
             squares[0][2] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
-            displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
+            displayWithDelay("You beat this boss (Marked in X)!, You are free to trasverse this level!");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
@@ -87,41 +87,45 @@ void Topic6::handleSquare02() {
     }
 }
 
-void Topic6::handleSquare10() {
+void Topic7::handleSquare10() {
     std::cout << "You are in the Village.\n";
-
-    displayMapWithPlayer(squares, baseMap);
-
+    displayWithDelay("You found an item!");
+    std::shared_ptr<Apple> appleItem = std::make_shared<Apple>();
+    std::string apple = "apple"; 
+    baseGame->addItem(apple, appleItem);
 }
 
-void Topic6::handleSquare11() {
+void Topic7::handleSquare11() {
     std::cout << "You are in the Castle.\n";
     std::cout << "This is the starter square\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic6::handleSquare12() {
+void Topic7::handleSquare12() {
     std::cout << "You are in the Cave.\n";
     displayWithDelay("There is nothing in the Cave.\n");
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic6::handleSquare20() {
+void Topic7::handleSquare20() {
     std::cout << "You are in the Field.\n";
-    displayMapWithPlayer(squares, baseMap);
+    displayWithDelay("You found an item!");
+    std::shared_ptr<Apple> appleItem = std::make_shared<Apple>();
+    std::string apple = "apple"; 
+    baseGame->addItem(apple, appleItem);
 }
 
-void Topic6::handleSquare21() {
+void Topic7::handleSquare21() {
     std::cout << "You are by the Lake.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic6::handleSquare22() {
+void Topic7::handleSquare22() {
     std::cout << "You are in the Desert.\n";
     displayMapWithPlayer(squares, baseMap);
 }
 
-void Topic6::handleCurrentSquare() {
+void Topic7::handleCurrentSquare() {
     auto position = baseMap->getCurrentLocaiton();
     int x = position.first;
     int y = position.second;

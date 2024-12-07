@@ -1,30 +1,62 @@
 #include <iostream>
 #include "./basemap/maingame.h"
 #include "./maps/topic1/topic1.h"
+#include "./maps/topic2/topic2.h"
+#include "./maps/topic3/topic3.h"
+#include "./maps/topic4/topic4.h"
+#include "./maps/topic5/topic5.h"
 #include "./maps/topic6/topic6.h"
+#include "./maps/topic7/topic7.h"
+#include "./maps/topic8/topic8.h"
+#include "./maps/topic9/topic9.h"
+#include "./maps/topic10/topic10.h"
 #include "./basemap/basemap.h"
 #include <thread>
 #include <memory>
 #include <atomic>
 #include <chrono>
 #include <algorithm>
+#include <sstream>
 
 std::atomic<bool> isGameRunning(true);
 
 //store all maps, dont forget to clean
-Topic1* topic1Map; 
-Topic6* topic6Map; 
-
+Topic1*  topic1Map; 
+Topic2*  topic2Map;
+Topic3*  topic3Map;
+Topic4*  topic4Map;
+Topic5*  topic5Map;
+Topic6*  topic6Map; 
+Topic7*  topic7Map; 
+Topic8*  topic8Map;
+Topic9*  topic9Map;
+Topic10* topic10Map;
 void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& game) {
     if (topic1Map == nullptr) { 
         topic1Map = new Topic1(map, game);
+        topic2Map = new Topic2(map, game);
+        topic3Map = new Topic3(map, game);
+        topic4Map = new Topic4(map, game);
+        topic5Map = new Topic5(map, game);
         topic6Map = new Topic6(map, game);
+        topic7Map = new Topic7(map, game);
+        topic8Map = new Topic8(map, game);
+        topic9Map = new Topic9(map, game);
+        topic10Map = new Topic10(map, game);
     }
 }
 
 void deleteMaps() {
     delete topic1Map;
+    delete topic2Map;
+    delete topic3Map;
+    delete topic4Map;
+    delete topic5Map;
     delete topic6Map;
+    delete topic7Map;
+    delete topic8Map;
+    delete topic9Map;
+   delete topic10Map;
 }
 
 BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game, std::string& mapNumber) {
@@ -34,30 +66,38 @@ BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<Advent
         return topic1Map; 
     } else if (mapNumber == "2") {
         std::cout << "Arrived at Custom Template Class\n";
+        return topic2Map;
     } else if (mapNumber == "3") {
         std::cout << "Arrived at Custom Namespace\n";
+        return topic3Map;
     } else if (mapNumber == "4") {
         std::cout << "Arrived at Classes with Constructor, Destructor, Assignment Operator\n";
+        return topic4Map;
     } else if (mapNumber == "5") {
         std::cout << "Arrived at Lambda Functions\n";
+        return topic5Map;
     } else if (mapNumber == "6") {
         std::cout << "Arrived at Exception Handling\n";
         return topic6Map;
     } else if (mapNumber == "7") {
         std::cout << "Arrived at Inheritance\n";
+        return topic7Map;
     } else if (mapNumber == "8") {
         std::cout << "Arrived at Virtual Functions or Abstract Classes\n";
+        return topic8Map;
     } else if (mapNumber == "9") {
         std::cout << "Arrived at Hashing\n";
+        return topic9Map;
     } else if (mapNumber == "10") {
         std::cout << "Arrived at Sorting Algorithms\n";
+        return topic10Map;
     } else {
         return nullptr;
     }
 }
 
 void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMap>& map, std::string& mapNumber) {
-     auto displayAnimation = []() {
+    auto displayAnimation = []() {
         std::string loadingAnimation[] = {
             "[*        ] Loading map...",
             "[**       ] Loading map...",
@@ -90,24 +130,32 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
                     std::cout<< "Arrived at Standard Library Containers (map, vector, etc.)\n\n";
                     topic1Map->displayMapWithPlayerI();
                 }else if(userChoice=="2"){
+                    topic2Map->displayMapWithPlayerI();
                     std::cout << "Arrived at Custom Template Class\n";
                 }else if(userChoice=="3"){
-                    
+                    topic3Map->displayMapWithPlayerI();
+                    std::cout << "Arrived at Custom Namespace\n";
                 }else if(userChoice=="4"){
-
+                    std::cout << "Arrived at Classes with Constructor, Destructor, Assignment Operator\n";
+                    topic4Map->displayMapWithPlayerI();
                 }else if(userChoice=="5"){
-                    
+                    std::cout << "Arrived at Lambda Functions\n";
+                    topic5Map->displayMapWithPlayerI();
                 }else if(userChoice=="6"){
                     std::cout<<"Arrived at Exception Handling\n";
                     topic6Map->displayMapWithPlayerI();
                 }else if(userChoice=="7"){
-                    
+                    std::cout << "Arrived at Inheritance\n";
+                    topic7Map->displayMapWithPlayerI();
                 }else if(userChoice=="8"){
-                    
+                    std::cout << "Arrived at Virtual Functions or Abstract Classes\n";
+                    topic8Map->displayMapWithPlayerI();
                 }else if(userChoice=="9"){
-                    
+                    std::cout << "Arrived at Hashing\n";
+                    topic9Map->displayMapWithPlayerI();
                 }else if(userChoice=="10"){
-                    
+                    std::cout << "Arrived at Sorting Algorithms\n";
+                    topic10Map->displayMapWithPlayerI();
                 }
                 mapNumber = userChoice;
                 break;
