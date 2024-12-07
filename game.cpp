@@ -208,10 +208,10 @@ void commandListener(std::shared_ptr<AdventureGame>& game, std::shared_ptr<BaseM
 void checkStatus(std::shared_ptr<AdventureGame>& game) {
     while (isGameRunning) {
         if (game->returnHealth() <= 0) {
-            std::cout << "You have DIED! All Progress Lost!" << std::endl;
+            std::cout << "You have DIED! All Progress Lost! Type Anything to quit game!" << std::endl;
             isGameRunning = false; 
         } else if (game->completedSquares > 10) {
-            std::cout << "You have WON! Thanks for playing!" << std::endl;
+            std::cout << "You have WON! Thanks for playing! Type Anything to quit game!" << std::endl;
             isGameRunning = false; 
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(100));

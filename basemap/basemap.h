@@ -34,7 +34,7 @@ public:
                     const std::string& rightChoice, 
                     const std::string& winningMessage = "That's right! Congrats you did not lose any health!", 
                     const std::string& losingMessage = "Wrong!", 
-                    const std::shared_ptr<BaseMap>& existingBaseMap = nullptr);
+                    const std::shared_ptr<AdventureGame>& existingBaseMap = nullptr);
     virtual bool uncompletedSquare() {return false;};
 };
 

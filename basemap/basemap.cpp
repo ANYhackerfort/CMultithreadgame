@@ -120,7 +120,7 @@ bool BaseMap::validateChoice(const std::string& choice,
                              const std::string& rightChoice, 
                              const std::string& winningMessage, 
                              const std::string& losingMessage, 
-                             const std::shared_ptr<BaseMap>& existingBaseMap) {
+                             const std::shared_ptr<AdventureGame>& existingBaseMap) {
     if (choice == rightChoice) {
         std::cout << winningMessage << std::endl;
         return true; 

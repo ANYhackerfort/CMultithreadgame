@@ -11,12 +11,14 @@
 
 class AdventureGame {
 protected:
-    int health;
     Inventory<GameItem> inventory;
     std::unordered_map<std::string, std::string> topics;
 
 public:
-    int completedSquares = 0; //im too lazy
+    int health;
+    int completedSquares = 0;
+
+public:
     AdventureGame();
     virtual ~AdventureGame() {}
 
