@@ -29,12 +29,7 @@ bool Topic6::uncompletedSquare() {
 
 void Topic6::handleSquare00() {
     displayMapWithPlayer(squares, baseMap);
-}
-
-void Topic6::handleSquare01() {
-    std::cout << "You are on the Mountain.\n";
-    displayMapWithPlayer(squares, baseMap);
-    
+        
     displayWithDelay("You have encountered [basics of exception handling]! A boss of this level!", 1000); 
     displayWithDelay("[basics of exception handling] launches a weak attack: What is the purpose of exception handling in C++?", 1500); 
 
@@ -47,7 +42,7 @@ void Topic6::handleSquare01() {
         printChoices("answers", "The program terminates with an error message.","The exception is ignored.","The compiler resolves the exception automatically.","D. Undefined behavior occurs.");
         startInputListener();
         if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
-            squares[0][1] = true; 
+            squares[0][0] = true; 
             ++completedSquares;
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
@@ -57,6 +52,11 @@ void Topic6::handleSquare01() {
     } else {
         displayWithDelay("You lost, progress reset!");
     }
+}
+
+void Topic6::handleSquare01() {
+    std::cout << "You are on the Mountain.\n";
+    displayMapWithPlayer(squares, baseMap);
 }
 
 void Topic6::handleSquare02() {
@@ -75,7 +75,7 @@ void Topic6::handleSquare02() {
         printChoices("answers", "class exceptionClass{};","class MyException = public std::exception {};","class MyException { public: virtual const char* what() const noexcept; };","class MyException : std::exception {};");
         startInputListener();
         if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
-            squares[0][1] = true; 
+            squares[0][2] = true; 
             ++completedSquares;
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");

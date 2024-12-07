@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./basemap/maingame.h"
 #include "./maps/topic1/topic1.h"
+#include "./maps/topic2/topic2.h"
 #include "./maps/topic6/topic6.h"
 #include "./basemap/basemap.h"
 #include <thread>
@@ -13,17 +14,20 @@ std::atomic<bool> isGameRunning(true);
 
 //store all maps, dont forget to clean
 Topic1* topic1Map; 
+Topic2* topic2Map;
 Topic6* topic6Map; 
 
 void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& game) {
     if (topic1Map == nullptr) { 
         topic1Map = new Topic1(map, game);
+        topic2Map = new Topic2(map, game);
         topic6Map = new Topic6(map, game);
     }
 }
 
 void deleteMaps() {
     delete topic1Map;
+    delete topic2Map;
     delete topic6Map;
 }
 
@@ -36,6 +40,7 @@ BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<Advent
         return topic1Map; 
     } else if (mapNumber == "2") {
         std::cout << "Arrived at Custom Template Class\n";
+        return topic2Map;
     } else if (mapNumber == "3") {
         std::cout << "Arrived at Custom Namespace\n";
     } else if (mapNumber == "4") {
@@ -59,7 +64,7 @@ BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<Advent
 }
 
 void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<BaseMap>& map, std::string& mapNumber) {
-     auto displayAnimation = []() {
+    auto displayAnimation = []() {
         std::string loadingAnimation[] = {
             "[*        ] Loading map...",
             "[**       ] Loading map...",
@@ -92,6 +97,7 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
                     std::cout<< "Arrived at Standard Library Containers (map, vector, etc.)\n\n";
                     topic1Map->displayMapWithPlayerI();
                 }else if(userChoice=="2"){
+                    topic2Map->displayMapWithPlayerI();
                     std::cout << "Arrived at Custom Template Class\n";
                 }else if(userChoice=="3"){
                     
@@ -194,7 +200,7 @@ void checkStatus(std::shared_ptr<AdventureGame>& game) {
         if (game->returnHealth() <= 0) {
             std::cout << "You have DIED! All Progress Lost!" << std::endl;
             isGameRunning = false; 
-        } else if (game->completedSquares > 10) {
+        } else if (game->completedSquares >= 3) {
             std::cout << "You have WON! Thanks for playing!" << std::endl;
             isGameRunning = false; 
         }
