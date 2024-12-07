@@ -94,6 +94,6 @@ Hardships while making this project:
     -time restraints
     
 Specific bugs for exam:
-    -Passing GameItem& to addItem caused slicing, chopping off those juicy derived class properties and methods. Polymorphism went out the window!
-    -Always pass shared pointers when polymorphism is involved—save yourself from slicing nightmares!
+    -Passing GameItem& to addItem caused slicing, chopping off those juicy derived class properties and methods. Polymorphism went out the window XD!
+    -Always pass shared pointers when polymorphism is involved—save yourself from slicing nightmares.
     -Ensure your function signatures match the types your classes expect.
