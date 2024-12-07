@@ -1,10 +1,10 @@
-#ifndef SORT
-#define SORT
+#ifndef SORT_H
+#define SORT_H
 #include <iostream>
 #include <vector>
-#include <algorithm> // for std::swap
+#include <algorithm> 
+
 namespace Util { 
-// Template Partition function
 template <typename T>
 int partition(std::vector<T>& arr, int low, int high) {
     T pivot = arr[high]; 

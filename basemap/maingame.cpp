@@ -21,8 +21,7 @@ void AdventureGame::displayStats() const {
 void AdventureGame::addItem(const std::string& item) {
     inventory.push_back(item);
     std::cout << "Added \"" << item << "\" to your inventory.\n";
-    Util::quicksort<std::string>(inventory,0,inventory.size());
-
+    Util::quicksort <std::string> (inventory,0,inventory.size()-1);
 }
 
 void AdventureGame::displayInventory() const {

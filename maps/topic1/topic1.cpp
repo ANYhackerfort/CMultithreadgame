@@ -52,6 +52,8 @@ void Topic1::handleSquare01() {
             ++completedSquares;
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
+            displayWithDelay("You got an item!");
+            baseGame->addItem("potion");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
