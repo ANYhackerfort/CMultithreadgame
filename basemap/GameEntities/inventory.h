@@ -17,8 +17,9 @@ private:
         int count;
     };
 
-    size_t inventorySize;
+    std::size_t inventorySize;
     std::vector<std::list<Node>> inventoryHashMap;
+    std::size_t numItems; 
 
     size_t hashFunction(const std::string& key) const;
 
@@ -31,16 +32,15 @@ public:
 
     T* getItem(const std::string& key);
 
-    void displayItems() const;
+    void displayItems(std::string type = "") const;
 
-    std::vector<std::string> sortItemsIntoArrayName() const;
-
-    std::vector<int> sortItemsIntoArrayCount() const;
+    void displaySortItemsIntoArrayName() const;
+    void displaySortItemsIntoArrayCount() const;
 };
 
 // Constructor
 template <typename T>
-Inventory<T>::Inventory(size_t size) : inventorySize(size), inventoryHashMap(size) {}
+Inventory<T>::Inventory(size_t size) : inventorySize(size), inventoryHashMap(size), numItems(0){}
 
 // Hash Function
 template <typename T>
@@ -61,6 +61,7 @@ void Inventory<T>::addItem(const std::string& key, const T& value) {
         }
     }
     inventoryHashMap[index].push_back({key, value, 1});
+    numItems++; 
 }
 
 // Remove Item
@@ -78,6 +79,7 @@ void Inventory<T>::removeItem(const std::string& key) {
             return;
         }
     }
+    numItems--;
 }
 
 // Get Item
@@ -94,38 +96,47 @@ T* Inventory<T>::getItem(const std::string& key) {
 
 // Display Items
 template <typename T>
-void Inventory<T>::displayItems() const {
-    for (const auto& bucket : inventoryHashMap) {
-        for (const auto& node : bucket) {
-            std::cout << "Item Name: " << node.key << " || You have " << node.count << " of these!" << std::endl;
+void Inventory<T>::displayItems(std::string type) const {
+    if (numItems == 0) {
+        std::cout << "You don't currently have any items in your Inventory!" << std::endl;
+    }
+    if (type == "") {
+        for (const auto& bucket : inventoryHashMap) {
+            for (const auto& node : bucket) {
+                std::cout << "Item Name: " << node.key << " || You have " << node.count << " of these!" << std::endl;
+            }
         }
+    } else if (type == "name") {
+        displaySortItemsIntoArrayName();
+    } else if (type == "count") {
+        displaySortItemsIntoArrayCount();
     }
 }
 
 // Sort Items by Name
 template <typename T>
-std::vector<std::string> Inventory<T>::sortItemsIntoArrayName() const {
+void Inventory<T>::displaySortItemsIntoArrayName() const {
     std::vector<std::string> items;
     for (const auto& bucket : inventoryHashMap) {
         for (const auto& node : bucket) {
             items.push_back(node.key);
         }
     }
-    Util::quicksort<std::string>(items, 0, items.size() - 1); // Use actual size
-    return items;
+    Util::quicksort<std::string>(items, 0, items.size() - 1); 
+
 }
 
 // Sort Items by Count
 template <typename T>
-std::vector<int> Inventory<T>::sortItemsIntoArrayCount() const {
+void Inventory<T>::displaySortItemsIntoArrayCount() const {
     std::vector<int> counts;
     for (const auto& bucket : inventoryHashMap) {
         for (const auto& node : bucket) {
             counts.push_back(node.count);
         }
     }
-    Util::quicksort<int>(counts, 0, counts.size() - 1); // Use actual size
-    return counts;
+    Util::quicksort<int>(counts, 0, counts.size() - 1);
+
 }
 
 #endif // INVENTORY_H
