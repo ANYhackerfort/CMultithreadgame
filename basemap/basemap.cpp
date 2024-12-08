@@ -12,18 +12,19 @@ BaseMap::BaseMap() : playerPosition({1, 1}) {}
 BaseMap::~BaseMap() {}
 
 void BaseMap::displayMapWithPlayer(const std::array<std::array<bool, 3>, 3>& squares, const std::shared_ptr<BaseMap> baseMap) {
-    std::cout << "Map Squares:\n";
+    std::cout << "\n============== Map ==============\n";
     for (int row = 0; row < squares.size(); ++row) {
+        std::cout << "  ";
         for (int col = 0; col < squares[row].size(); ++col) {
             if (baseMap->playerPosition.first == row && baseMap->playerPosition.second == col) {
-                std::cout << (squares[row][col] ? "[XO]" : "[O]") << " ";
+                std::cout << (squares[row][col] ? "[ ✔★]" : "[ ★ ]") << " ";
             } else {
-                std::cout << (squares[row][col] ? "[X]" : "[ ]") << " ";
+                std::cout << (squares[row][col] ? "[ ✔ ]" : "[   ]") << " ";
             }
         }
         std::cout << "\n";
     }
-    std::cout << std::endl;
+    std::cout << "===================================\n";
 }
 
 void BaseMap::displayWithDelay(const std::string& message, int delayMs) {
@@ -33,6 +34,7 @@ void BaseMap::displayWithDelay(const std::string& message, int delayMs) {
 
 void BaseMap::moveNorth() {
     if (playerPosition.first > 0) {
+        previousPlayerPosition = playerPosition;
         playerPosition.first--;
         std::cout << "<<Moved North>>" << std::endl;
     } else {
@@ -42,6 +44,7 @@ void BaseMap::moveNorth() {
 
 void BaseMap::moveSouth() {
     if (playerPosition.first < 2) {
+        previousPlayerPosition = playerPosition;
         playerPosition.first++;
         std::cout << "<<Moved South>>" << std::endl;
     } else {
@@ -51,6 +54,7 @@ void BaseMap::moveSouth() {
 
 void BaseMap::moveWest() {
     if (playerPosition.second > 0) {
+        previousPlayerPosition = playerPosition;
         playerPosition.second--;
         std::cout << "<<Moved West>>" << std::endl;
     } else {
@@ -60,6 +64,7 @@ void BaseMap::moveWest() {
 
 void BaseMap::moveEast() {
     if (playerPosition.second < 2) {
+        previousPlayerPosition = playerPosition;
         playerPosition.second++;
         std::cout << "<<Moved East>>" << std::endl;
     } else {

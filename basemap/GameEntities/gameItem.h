@@ -26,7 +26,6 @@ public:
     void setData(int d) { data = d; }
 
     virtual void healPlayer(int& health) const {
-        std::cout << "WHAT";
         return;};
 };
 

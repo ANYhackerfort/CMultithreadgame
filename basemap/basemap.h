@@ -13,7 +13,9 @@ protected:
     std::queue<std::string> input;
 
 public:
-    std::pair<int, int> playerPosition; //lazy
+    location playerPosition; 
+    location previousPlayerPosition;
+
     BaseMap();                       
     virtual ~BaseMap();     
 

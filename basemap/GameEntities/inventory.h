@@ -33,21 +33,38 @@ public:
     void displaySortItemsIntoArrayCount() const;
 
     bool healWithItem(const std::string& key, int& health);
+    Inventory<T>& operator=(const Inventory<T>& other); 
 };
 
-// Constructor
 template <typename T>
 Inventory<T>::Inventory(size_t size)
-    : inventorySize(size), inventoryHashMap(size), numItems(0) {}
+    : inventorySize(size), inventoryHashMap(size), numItems(0) {} //sets up inventorysizeof10
 
-// Hash Function
+template <typename T>
+Inventory<T>& Inventory<T>::operator=(const Inventory<T>& other) {
+    if (this == &other) {
+        return this;
+    }
+
+    inventorySize = other.inventorySize;
+    numItems = other.numItems;
+    inventoryHashMap.clear();
+    inventoryHashMap.resize(other.inventorySize);
+
+    for (size_t i = 0; i < other.inventoryHashMap.size(); ++i) {
+        for (const auto& node : other.inventoryHashMap[i]) {
+            inventoryHashMap[i].emplace_back(node);
+        }
+    }
+    return *this;
+}
+
 template <typename T>
 size_t Inventory<T>::hashFunction(const std::string& key) const {
     std::hash<std::string> hasher;
     return hasher(key) % inventorySize;
 }
 
-// Add Item
 template <typename T>
 void Inventory<T>::addItem(const std::string& key, const std::shared_ptr<T>& value) {
     std::cout << "Added [" << key << "] to your inventory!" << std::endl;
@@ -62,7 +79,6 @@ void Inventory<T>::addItem(const std::string& key, const std::shared_ptr<T>& val
     numItems++;
 }
 
-// Remove Item
 template <typename T>
 void Inventory<T>::removeItem(const std::string& key) {
     size_t index = hashFunction(key);
@@ -80,7 +96,6 @@ void Inventory<T>::removeItem(const std::string& key) {
     }
 }
 
-// Get Item
 template <typename T>
 std::shared_ptr<T> Inventory<T>::getItem(const std::string& key) {
     size_t index = hashFunction(key);
@@ -92,19 +107,17 @@ std::shared_ptr<T> Inventory<T>::getItem(const std::string& key) {
     return nullptr;
 }
 
-// Heal with Item
 template <typename T>
 bool Inventory<T>::healWithItem(const std::string& key, int& health) {
     auto item = getItem(key);
     if (item) {
-        item->healPlayer(health); // Calls derived method via polymorphism
+        item->healPlayer(health);
         return true;
     } else {
         return false;
     }
 }
 
-// Display Items
 template <typename T>
 void Inventory<T>::displayItems(std::string type) const {
     if (numItems == 0) {
@@ -122,7 +135,6 @@ void Inventory<T>::displayItems(std::string type) const {
     }
 }
 
-// Display Sort by Name
 template <typename T>
 void Inventory<T>::displaySortItemsIntoArrayName() const {
     std::vector<Util::Node<std::shared_ptr<T>>> items;
@@ -137,7 +149,6 @@ void Inventory<T>::displaySortItemsIntoArrayName() const {
     }
 }
 
-// Display Sort by Count
 template <typename T>
 void Inventory<T>::displaySortItemsIntoArrayCount() const {
     std::vector<Util::Node<std::shared_ptr<T>>> items;

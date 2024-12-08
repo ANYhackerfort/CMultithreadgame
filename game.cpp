@@ -31,6 +31,7 @@ Topic7*  topic7Map;
 Topic8*  topic8Map;
 Topic9*  topic9Map;
 Topic10* topic10Map;
+
 void loadMaps(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>& game) {
     if (topic1Map == nullptr) { 
         topic1Map = new Topic1(map, game);
@@ -56,11 +57,11 @@ void deleteMaps() {
     delete topic7Map;
     delete topic8Map;
     delete topic9Map;
-   delete topic10Map;
+    delete topic10Map;
 }
 
 BaseMap* processUserChoice(std::shared_ptr<BaseMap>& map, std::shared_ptr<AdventureGame>&game, std::string& mapNumber) {
-    
+    std::cout << "Move around by typing: movenorth, movesouth, moveeast, movewest [not case-sensitive]" << std::endl;
     if (mapNumber == "1") {
         std::cout << "Arrived at Standard Library Containers (map, vector, etc.)\n";
         return topic1Map; 
@@ -164,7 +165,6 @@ void handleMapSelection(std::shared_ptr<AdventureGame>&game, std::shared_ptr<Bas
             }
         } catch(const std::invalid_argument& e) {
             std::cerr << "Error: " << e.what() << std::endl;
-            // Handle the invalid map number scenario by returning nullptr
         }
     }
 }
@@ -250,6 +250,14 @@ void commandListener(std::shared_ptr<AdventureGame>& game, std::shared_ptr<BaseM
                     } else if (command == "/map" || command == "/m") {
                         game->displayTopics();
                         handleMapSelection(game, map, mapNumber);
+                    } else if (command == "/help") {
+                        std::cout << "==================================================\n";
+                        std::cout << "/stats to check completed squares and your other stats\n";
+                        std::cout << "/i to see your inventory, /i name to sort by name, or /i count to sort by count.\n";
+                        std::cout << "/map to view the map\n";
+                        std::cout << "==================================================\n";
+                        std::cout << "movenorth movewest movesouth moveeast to navigate through a map (not case sensitive)!\n";
+                        std::cout << "==================================================\n";
                     } else {
                         throw std::invalid_argument("Unrecognized command: " + command);
                     }
@@ -272,6 +280,7 @@ void checkStatus(std::shared_ptr<AdventureGame>& game) {
             std::cout << "You have WON! Thanks for playing! Type Anything to quit game!" << std::endl;
             isGameRunning = false; 
         }
+        //returns after another user input
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
@@ -283,14 +292,28 @@ int main() {
     // std::shared_ptr<BaseMap> anotherMap = map;
     std::string mapNumber;
 
-    std::cout << "Welcome to Nabeel's open world; Elden Ring Style Game! Full freedom to explore!\n";
+    auto displayInstructions = []() {
+        std::cout << "\n";
+        std::cout << "==================================================\n";
+        std::cout << "\033[1mInstructions:\033[0m\n";
+        std::cout << "- Explore \033[1m10 unique maps\033[0m, each with \033[1m9 unique squares\033[0m!\n";
+        std::cout << "- Use \033[1m/map\033[0m to teleport to any map.\n";
+        std::cout << "- Your position stays the \033[1mSAME\033[0m when teleporting. EX: (z,x,y): (0,1,2) -> (3,1,2).\n";
+        std::cout << "- Beat the square's \033[1mBOSS\033[0m to progress. \033[1mUnbeaten squares RESET\033[0m if you leave!\n";
+        std::cout << "- \033[1mProgress is stored\033[0m on each map if you beat the square. However, if you \033[1mDIE, YOU LOSE EVERYTHING\033[0m!\n";
+        std::cout << "\n";
+        std::cout << "- Strategize your teleports \033[1mwisely\033[0m and conquer the maps!\n";
+        std::cout << "\n";
+        std::cout << "\033[1mGood Luck, Tarnished!\033[0m\n";
+        std::cout << "==================================================\n";
+        std::cout << "Welcome to Nabeel's open world; Elden Ring Style Game! Full freedom to explore!\n";
+        std::cout << "Let's start with /map to view and select a map to teleport to!: \n";
+        std::cout << "/help for other commands! \n";
+    };
+    displayInstructions();
+
     std::thread inputThread1(commandListener, std::ref(game), std::ref(map), std::ref(mapNumber));
     std::thread inputThread2(checkStatus, std::ref(game));
-
-    std::cout << "\nDid you know you can type:\n";
-    std::cout << "  - /stats to check completed squares and your other stats\n";
-    std::cout << "  - /i to see your inventory, /i name to sort by name, or /i count to sort by count.\n";
-    std::cout << "  - /map to view the map\n";
 
     inputThread1.join();
     inputThread1.join();

@@ -13,8 +13,7 @@ Topic1::Topic1()
 Topic1::Topic1(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
-      squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
-}
+      squares{{{true, false, true}, {true, true, true}, {true, true, true}}} {}
 
 Topic1::~Topic1() {
 
@@ -25,7 +24,8 @@ void Topic1::displayMapWithPlayerI() {
 }
 
 bool Topic1::uncompletedSquare() {
-    return !squares[baseMap->playerPosition.first][baseMap->playerPosition.second];
+    std::cout << "HELLO";
+    return !squares[baseMap->previousPlayerPosition.first][baseMap->previousPlayerPosition.second];
 }
 
 void Topic1::handleSquare00() {
@@ -84,6 +84,10 @@ void Topic1::handleSquare11() {
 
 void Topic1::handleSquare12() {
     std::cout << "You are in the Cave.\n";
+    std::cout << "You found an Item!\n";
+    std::shared_ptr<Apple> appleItem = std::make_shared<Apple>();
+    std::string apple = "apple"; 
+    baseGame->addItem(apple, appleItem);
     displayMapWithPlayer(squares, baseMap);
 }
 
@@ -110,7 +114,7 @@ void Topic1::handleCurrentSquare() {
     if (x >= 0 && x < 3 && y >= 0 && y < 3) {
         if (squares[x][y]) {
             displayMapWithPlayerI();
-            std::cout << "You have already completed this level, you are free to move through it!\n";
+            std::cout << "[A calm clam square...]!\n";
         } else {
             if (x == 0 && y == 0) handleSquare00();
             else if (x == 0 && y == 1) handleSquare01();
