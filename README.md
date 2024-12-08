@@ -109,7 +109,7 @@ This project was written entirely by us while referring to:
   - 7. Items inherit from the `GameItem` class.
 
 ## Challenges Encountered
-
+> [!NOTE]
 ### Hardships While Making This Project:
 - **Template Classes:** Really hard to work with.
 - **Threading:** Proper use of threading was challenging.
