@@ -4,7 +4,7 @@
 Project by: Matthew Zhang & Tony Li
 
 ## Objective
-The objective is to create an Elden Ring open-world game. This game has **10 maps (or floors)**, and each floor has **9 squares (different parts of each map)**.
+The objective is to create an Elden Ring open-world Adventure game. This game has **10 maps (or floors)**, and each floor has **9 squares (different parts of each map)**.
 
 - The user can teleport (`/map`) to any floor even while completing a square in that floor. However, **once you leave**, the square of the map you were on gets **reset** (like an Elden Ring boss).
 - Squares that you beat **get saved**, so users can skip through beaten areas of the map to access other parts.
@@ -26,7 +26,12 @@ The objective is to create an Elden Ring open-world game. This game has **10 map
 > - This limits your movements in each floor so you can't just teleport up from anywhere.
 
 ## Other Commands
-- When traveling with an animation, you are **hinted at commands** to check your health and items in your inventory.
+- Use /stats to check your completed squares and other stats.
+- Use /i to view your inventory.
+- - Add name after /i to sort the inventory by name.
+- - Add count after /i to sort the inventory by count.
+- Use /map to view the map
+- movenorth, movewest, movesouth, moveeast to navigate inside each floor or map.
 
 ## Rules
 - Once you lose all your health, **all progress is lost** at that square, and you have to start over.
@@ -36,8 +41,10 @@ The objective is to create an Elden Ring open-world game. This game has **10 map
   - **You cannot try to beat the square again!**
 
 ## How to Win
-- Complete **10 squares across the 10 maps**. You can choose any combination of maps and squares.
+- You only need to complete **10 squares across the 10 maps**. You can choose any combination of maps and squares.
 - But beware: **once you lose all your health, GAME OVER. EVERYTHING RESETS!**
+> [!NOTE]
+> There will be items such as health potions and apples to help you!
 
 ## Acknowledgments
 This project was written entirely by us while referring to:
@@ -51,10 +58,13 @@ This project was written entirely by us while referring to:
 ### General Topics
 1. **Standard Containers:**
    - Used throughout all the classes to store information of various types.
-   - Example: Our custom hash map relies on `std::vector` and `std::list`.
+   Example:
+   - Our custom hash map relies on `std::vector` and `std::list`. Our maps are stored in a `std::unordered_map`.
+   - `std::swap` used to swap elements in our custom hashmap.
 
 2. **Custom Template Class:**
    - The `inventory` is a custom template class used to store the player’s inventory.
+   - The inventory is a hashmap that stores the actual object node instance of each item, along with its name and quantity. This design avoids frequent deletion and recreation of objects by maintaining a single instance per unique item. When items are removed, only the quantity is decremented; efficient inventory management.
 
 3. **Custom Namespace:**
    - `Util` is a custom namespace that includes a template quicksort function.

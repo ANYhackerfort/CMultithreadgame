@@ -68,7 +68,7 @@ void Topic2::handleSquare10() {
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
             displayWithDelay("You got an item!");
-            std::string healthPotionKey = "HealthPotion";
+            std::string healthPotionKey = "healthpotion";
             std::shared_ptr<HealthPotion> healthPotion = std::make_shared<HealthPotion>();
             baseGame->addItem(healthPotionKey, healthPotion);
 
@@ -122,7 +122,7 @@ void Topic2::handleSquare21() {
             displayMapWithPlayer(squares, baseMap);
             displayWithDelay("You beat this level!, You are free to trasverse this level (Marked in X)!");
             displayWithDelay("You got an item!");
-            std::string healthPotionKey = "HealthPotion";
+            std::string healthPotionKey = "healthpotion";
             std::shared_ptr<HealthPotion> healthPotion = std::make_shared<HealthPotion>();
             baseGame->addItem(healthPotionKey, healthPotion);
         } else {
