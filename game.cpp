@@ -265,6 +265,8 @@ void commandListener(std::shared_ptr<AdventureGame>& game, std::shared_ptr<BaseM
             } catch (const std::invalid_argument& e) {
                 std::cerr << "Error: " << e.what() << std::endl;
             }
+        } else if (command == "q") {
+            return;
         } else if (!command.empty()){
             std::cerr << "Error: Unrecognized game machanic: " << input << std::endl;
         }
@@ -274,10 +276,10 @@ void commandListener(std::shared_ptr<AdventureGame>& game, std::shared_ptr<BaseM
 void checkStatus(std::shared_ptr<AdventureGame>& game) {
     while (isGameRunning) {
         if (game->returnHealth() <= 0) {
-            std::cout << "You have DIED! All Progress Lost! Type Anything to quit game!" << std::endl;
+            std::cout << "You have DIED! All Progress Lost! Type Q to quit game!" << std::endl;
             isGameRunning = false; 
-        } else if (game->completedSquares > 10) {
-            std::cout << "You have WON! Thanks for playing! Type Anything to quit game!" << std::endl;
+        } else if (game->completedSquares == 0) {
+            std::cout << "You have WON! Thanks for playing! Type Q to quit game!" << std::endl;
             isGameRunning = false; 
         }
         //returns after another user input
@@ -316,7 +318,7 @@ int main() {
     std::thread inputThread2(checkStatus, std::ref(game));
 
     inputThread1.join();
-    inputThread1.join();
+    inputThread2.join();
 
     deleteMaps(); //clear maps
 
