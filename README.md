@@ -1,4 +1,4 @@
-/*
+
 # Elden Ring Style Open World Game
 
 Project by: Matthew Zhang & Tony Li
@@ -142,4 +142,4 @@ This project was written entirely by us while referring to:
 
 2. **Function Signatures:**
    - Ensure function signatures match the types your classes expect.
-*/
+
