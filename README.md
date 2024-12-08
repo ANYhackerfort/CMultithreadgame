@@ -55,6 +55,9 @@ This project was written entirely by us while referring to:
 
 ## Topics Used
 
+> [!NOTE]
+> These are just some ways we used the general topics. We also used topics outside of this list covered in the course such as threads, object slicing, etc... 
+
 ### General Topics
 1. **Standard Containers:**
    - Used throughout all the classes to store information of various types.
@@ -71,74 +74,53 @@ This project was written entirely by us while referring to:
 
 4. **Classes with Constructor, Destructor, and Assignment Operator:**
    - The `gameItem` class implements all three.
-   - Other classes have a constructor and destructor but rely on the default assignment operator.
+   - The `inventory` class implements all three with an assignment operator to make a deep copy of player's inventory. 
+   - Other classes have a constructor and destructor (free memory) but rely on the default assignment operator (because we never use the assignment operator for those classes (defeats our purpose)).
 
 5. **Lambda Functions:**
-   - Used for the loading screen animation.
-   - Also used in sorting (via quicksort) to sort by object class properties like count and name.
+   - Used for the loading screen animation / other inline functions to make code neater. 
+   - Also used in sorting (via quicksort) to specify sort by object class properties like count and name. Lambda function help determine how an object is greater or less. 
 
 6. **Exception Handling:**
    - Exception throws and catches ensure valid user inputs.
-   - Includes nested exception throws to handle out-of-scope errors.
+   - Includes nested exception throws to handle out-of-player-scope errors.
 
 7. **Inheritance:**
    - `BaseMap` inherits from `AdventureGame`.
    - Each topic class inherits from `BaseMap`, promoting code reusability and reducing redundancy.
+   - Each `gameItem` for example `apple` inherits from `gameItem` for the effects on the player. 
+   - Shared pointers are used to stores items in nodes in inventory so memory slicing doesn't happen. 
 
 8. **Virtual Functions or Abstract Classes:**
-   - `handleCurrentSquare()` in the `BaseMap` class is virtual.
+   - A lot of virtual functions are used so I could store items in a baseclass instead ofa derived class to better manage them by having them all be uniform.  
+   - EX: `handleCurrentSquare()` in the `BaseMap` class is virtual so can call different implemenations for handling each square could be called through the base class.
    - All relevant destructors are virtual.
 
 9. **Hashing:**
    - The inventory is a custom hash table with chaining (not probing) using `std::hash`.
+   - We also have all custom implementation for storing and deleting elements;
+   - Custom implementation for displaying elements of the custom hashmap. 
 
 10. **Sorting Algorithms:**
    - Players can sort inventory items by **name** or **count**.
-   - Implemented with quicksort for efficient average-case time complexity.
-
-### File-Specific Details
-
-#### game.cpp / adventuregame.cpp / basegame.cpp / topic1.cpp / topic2.cpp, etc.:
-- **Topics Used:**
-  - 4. `loadMaps` initializes all maps; `deleteMaps` deletes all maps.
-  - 5. `displayAnimation` in `handleMapSelection` uses a lambda function.
-  - 6. Exception handling is extensively used for managing invalid user inputs.
-  - 7. Topic classes (e.g., `Topic1`, `Topic2`) inherit from the `BaseMap` class.
-  - 8. Virtual functions are implemented in `BaseMap.cpp` and `MainGame.cpp`.
-
-#### inventory.h:
-- **Topics Used:**
-  - 1. Heavily utilizes `std::vector` and `std::list`.
-  - 2. The class itself is a custom template class.
-  - 4. Constructor is defined.
-  - 9. Hashing is explicitly implemented in the `hashFunction` method, which uses `std::hash`.
-
-#### sort.h:
-- **Topics Used:**
-  - 1. `std::vector` is central to the sorting algorithm.
-  - 2. Implements a custom template class (ish).
-  - 3. `Util` is a custom namespace.
-  - 10. Quicksort is implemented here.
-
-#### gameItem.h:
-- **Topics Used:**
-  - 4. Implements Constructor, Destructor, and Assignment Operator.
-  - 7. Items inherit from the `GameItem` class.
+   - Implemented with quicksort for efficient average-case time complexity. 
+   - The quick sort function works with a lot of types, and lambda function is there to handle sorting node objects based on specific attributes. 
 
 ## Challenges Encountered
 
 ### Hardships While Making This Project:
-- **Template Classes:** Really hard to work with.
-- **Threading:** Proper use of threading was challenging.
-- **Inheritance:** Scuffed inheritance is difficult to change after implementation.
-- **Git Issues:** Frequent merge/pull/branch/update issues.
-- **Makefile Issues:** Numerous errors to debug.
-- **Time Constraints:** Limited time to finish everything.
+- **Threading:** There was a race condition in reading what the user has written into the console if I have multiple threads listening to what's written in the console or writing into the console. It is recommended to just have 1 thread handling the console (what we did); however, it also could be implemented with storing user inputs in a quene and mutex locking it when one of the thread is accessing it. 
+- **Inheritance:** Inheritance is difficult to change after implementation, need a clear line of action before starting to code. What objects should have what focusing on meeting the feature first, then speed, then readaiblity / resusability. Clear inheritance was definetly a challenge in explaining to each other what we have each implemented so we could merge our logic together. 
+- **Makefile Issues:** You can not compile .h files, it's just gets compiled with whatever file includes them. That's why you should also attach .h files to the .o file that it is dependant on so make could know the dependency chain and automatically update .o file based on the changed .h files. 
+- **Template Classes:** Really hard to work with. Each time you use template parameter T, it is not automatically recognized outside the template's original declaration; assumed to be not used outside the class definition. 
+- **Composition:** Was a hassle in determing with objects should have which (next time we are to plan this before coding to save time debugging afterwards). It was also hard to figure out which objects are saved throughout the game and which ones are to be deleted when we get out of the scope (such as a level ending). Reference vs. just a direct copy. 
+- **Time Constraints:** Limited time to debug a big project like this with multiple components. 
 
 ### Specific Bugs for the Exam:
 1. **Slicing:**
    - Passing `GameItem&` to `addItem` caused slicing, chopping off derived class properties.
    - Solution: Always pass **shared pointers** when polymorphism is involved.
+   - Template T deduces the derived class and so does the auto key word. 
 
 2. **Function Signatures:**
    - Ensure function signatures match the types your classes expect.
