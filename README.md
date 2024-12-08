@@ -4,21 +4,26 @@
 Project by: Matthew Zhang & Tony Li
 
 ## Objective
-The objective is to create an Elden Ring open-world game. This game has **10 maps (or areas)**, and each area has **9 squares (different parts of each map)**.
+The objective is to create an Elden Ring open-world game. This game has **10 maps (or floors)**, and each floor has **9 squares (different parts of each map)**.
 
-- The user can teleport (`/map`) to any map even while completing a square. However, **once you leave**, the square of the map you were on gets **reset** (like an Elden Ring boss).
+- The user can teleport (`/map`) to any floor even while completing a square in that floor. However, **once you leave**, the square of the map you were on gets **reset** (like an Elden Ring boss).
 - Squares that you beat **get saved**, so users can skip through beaten areas of the map to access other parts.
-- **Progress is stored** in 10 map objects. However, if you **die, YOU LOSE EVERYTHING.**
+- **Progress is stored** in 10 floor objects. However, if you **die, YOU LOSE EVERYTHING.**
 - Read more to learn the quirk of teleportation.
 
 > [!Note]
 > Quirks about teleportation, the fun part!
 >## Teleportation
->- Users can always use `/map` to get all the maps they can travel to.
+>- Users can always use `/map` to get all the floors they can travel to.
 >- Once you enter the code, you can teleport there (like an Elden Ring map).
->- However, the position you teleport to will be the **same as your position on the current map**.
+>- However, the position of the floor you teleport to will be the **same as your position on the current floor** (meaning you can only teleport up!).
 >  **Example:** If you are in position `(2,1)` on the current map, teleporting to another map will still put you at `(2,1)`.
->- This limits your movement because you **must beat what’s on the current square** before progressing.
+> This mechanic adds strategy, requiring careful planning to teleport from specific squares to reach the boss squares you want to fight. 
+
+> [!Important]
+> ## Limitation on Movements
+> - To move to an unbeaten square, one of the connecting squares in the 4 directions must be beat.
+> - This limits your movements in each floor so you can't just teleport up from anywhere.
 
 ## Other Commands
 - When traveling with an animation, you are **hinted at commands** to check your health and items in your inventory.
