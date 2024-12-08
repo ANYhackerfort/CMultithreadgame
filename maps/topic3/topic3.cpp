@@ -70,11 +70,11 @@ void Topic3::handleSquare12() {
 
     printChoices("answers", "namespace Name { ... }", "using Name { ... }","define Name { ... }","namespace { ... }");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+    if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
         displayWithDelay("[Custom Namespace] launches a critical attack! namespace myNamespace = longNamespaceName;", 1000); 
         printChoices("answers", "This is not allowed in C++", "This will create a copy of the namespace.","This creates an alias myNamespace for longNamespaceName.","This will result in an error.");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "3","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "3","","",baseGame)) {
             squares[1][2] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);

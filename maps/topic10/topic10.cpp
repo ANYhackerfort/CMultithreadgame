@@ -12,7 +12,7 @@ Topic10::Topic10()
 Topic10::Topic10(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
-      squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
+      squares{{{false, true, false}, {true, true, true}, {true, true, true}}} {
 }
 
 Topic10::~Topic10() {
@@ -47,7 +47,7 @@ void Topic10::handleSquare00() {
             squares[0][0] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
-            displayWithDelay("You beat this boss (Marked in X)!, You are free to trasverse this level!");
+            displayWithDelay("You beat this boss!, You are free to trasverse this level!");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
@@ -80,7 +80,7 @@ void Topic10::handleSquare02() {
             squares[0][2] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
-            displayWithDelay("You beat this boss (Marked in X)!, You are free to trasverse this level!");
+            displayWithDelay("You beat this boss!, You are free to trasverse this level!");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
@@ -130,7 +130,7 @@ void Topic10::handleCurrentSquare() {
 
     if (x >= 0 && x < 3 && y >= 0 && y < 3) {
         if (squares[x][y]) {
-            std::cout << "You have already completed this level, you are free to move through it!\n";
+            std::cout << "[You have already completed this square, you are free to move through it!]\n";
             displayMapWithPlayerI();
         } else {
             if (x == 0 && y == 0) handleSquare00();

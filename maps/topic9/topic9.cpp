@@ -12,7 +12,7 @@ Topic9::Topic9()
 Topic9::Topic9(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
-      squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
+      squares{{{true, true, false}, {true, true, false}, {true, true, true}}} {
 }
 
 Topic9::~Topic9() {
@@ -59,7 +59,7 @@ void Topic9::handleSquare02() {
             squares[0][2] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
-            displayWithDelay("You beat this boss (Marked in X)!, You are free to trasverse this level!");
+            displayWithDelay("You beat this boss!, You are free to trasverse this level!");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
@@ -83,8 +83,31 @@ void Topic9::handleSquare11() {
 
 void Topic9::handleSquare12() {
     std::cout << "You are in the Cave.\n";
-    displayWithDelay("There is nothing in the Cave.\n");
+    displayWithDelay("There is nothing in the Cave....\n");
     displayMapWithPlayer(squares, baseMap);
+    displayWithDelay("....\n",1000);
+    displayWithDelay("You have encountered a cat!", 1000); 
+    displayWithDelay("Cat launches a attack: If a hash function is defined by H(x)=x % tablesize and the given table size is 5, what would H(7) be?", 1500); 
+
+    printChoices("answers", "2","1", "5", "3");
+    startInputListener(); //auto stops each time, you have to type this each time
+    if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
+
+        // displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
+        displayWithDelay("Cat launches another attack: Can double hashing still cause collisions?", 1500); 
+        printChoices("answers", "Yes","No");
+        startInputListener();
+        if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
+            squares[0][2] = true; 
+            baseGame->completedSquares++;
+            displayMapWithPlayer(squares, baseMap);
+            displayWithDelay("You beat this boss!, You are free to trasverse this level!");
+        } else {
+            displayWithDelay("You lost, progress reset!");
+        }
+    } else {
+        displayWithDelay("You lost, progress reset!");
+    }
 }
 
 void Topic9::handleSquare20() {
@@ -109,7 +132,7 @@ void Topic9::handleCurrentSquare() {
 
     if (x >= 0 && x < 3 && y >= 0 && y < 3) {
         if (squares[x][y]) {
-            std::cout << "You have already completed this level, you are free to move through it!\n";
+            std::cout << "[You have already completed this square, you are free to move through it!]\n";
             displayMapWithPlayerI();
         } else {
             if (x == 0 && y == 0) handleSquare00();

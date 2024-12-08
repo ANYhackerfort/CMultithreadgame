@@ -69,11 +69,11 @@ void Topic4::handleSquare12() {
 
     printChoices("answers", "Deep copy", "Shallow copy","Deletes the object","None of the above");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
+    if(validateChoice(getCurrentInput(), "2","","",baseGame)) {
         displayWithDelay("CLAS TUTOR launches a critical attack! The special member function used to initialize an object when it is created is the ________.", 1000); 
         printChoices("answers", "Class", "Assignment operator","Destructor","Constructor");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "4","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "4","","",baseGame)) {
             squares[1][2] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);

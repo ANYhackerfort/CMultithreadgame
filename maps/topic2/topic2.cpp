@@ -58,11 +58,11 @@ void Topic2::handleSquare10() {
 
     printChoices("answers", "T<T>", "template <typename T1, typename T2>","template <type T1, type T2>","template <T1,T2>");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
+    if(validateChoice(getCurrentInput(), "2","","",baseGame)) {
         displayWithDelay("[Custom Template Class] launches a critical attack! True or False: Template classes in C++ improve runtime performance.", 1000); 
         printChoices("answers", "True", "False");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "2","","",baseGame)) {
             squares[1][0] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
@@ -112,11 +112,11 @@ void Topic2::handleSquare21() {
 
     printChoices("answers", "True", "False");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+    if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
         displayWithDelay("[Custom Template Class1] launches a critical attack! What symbol is used to specify a template parameter in C++?", 1000); 
         printChoices("answers", "<>", "T","()","[]");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
             squares[2][1] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);

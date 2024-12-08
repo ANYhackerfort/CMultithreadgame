@@ -13,7 +13,7 @@ Topic5::Topic5()
 Topic5::Topic5(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
-      squares{{{true, true, true}, {false, false, false}, {false, false, false}}} {
+      squares{{{true, true, true}, {true, true, true}, {true, true, false}}} {
 }
 
 Topic5::~Topic5() {
@@ -97,15 +97,15 @@ void Topic5::handleSquare22() {
 
     printChoices("answers", "[]", "()","Lambda","None of the above");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+    if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
         displayWithDelay("lambda launches a critical attack! Which of the following is a valid use of a lambda function?", 1000); 
         printChoices("answers", "Sorting a std::vector with std::sort", "Defining a quick callback function","Creating a custom predicate for std::find_if","All of the above");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "4","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "4","","",baseGame)) {
             displayWithDelay("lambda launches a critical attack! Lambdas with no capture list (e.g., []) can be converted to a function pointer.", 1000); 
             printChoices("answers", "True", "False");
             startInputListener();
-            if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+            if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
                 squares[2][2] = true; 
                 baseGame->completedSquares++;
                 displayMapWithPlayer(squares, baseMap);
@@ -129,7 +129,7 @@ void Topic5::handleCurrentSquare() {
     if (x >= 0 && x < 3 && y >= 0 && y < 3) {
         if (squares[x][y]) {
             displayMapWithPlayerI();
-            std::cout << "You have already completed this level, you are free to move through it!\n";
+            std::cout << "[! ... ....... ... non-hostile square]\n";
         } else {
             if (x == 0 && y == 0) handleSquare00();
             else if (x == 0 && y == 1) handleSquare01();

@@ -12,7 +12,7 @@ Topic8::Topic8()
 Topic8::Topic8(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
-      squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
+      squares{{{false, true, true}, {true, true, true}, {true, true, true}}} {
 }
 
 Topic8::~Topic8() {
@@ -37,15 +37,15 @@ void Topic8::handleSquare00() {
 
     printChoices("answers", "True", "False");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+    if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
         displayWithDelay("abs launches an attack: Which of the following statements about an abstract class is true in C++?", 1500); 
         printChoices("answers", "An abstract class can be instantiated directly.","An abstract class cannot have member functions.","An abstract class must contain at least one pure virtual function.","An abstract class cannot be inherited.");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "3","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "3","","",baseGame)) {
             squares[0][0] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
-            displayWithDelay("You beat this boss (Marked in X)!, You are free to trasverse this level!");
+            displayWithDelay("You beat this boss!, You are free to trasverse this level!");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
@@ -111,7 +111,7 @@ void Topic8::handleCurrentSquare() {
 
     if (x >= 0 && x < 3 && y >= 0 && y < 3) {
         if (squares[x][y]) {
-            std::cout << "You have already completed this level, you are free to move through it!\n";
+            std::cout << "[IiiIiiiiI dont want a lot for christmas. III just want some calm squares.]\n";
             displayMapWithPlayerI();
         } else {
             if (x == 0 && y == 0) handleSquare00();

@@ -222,12 +222,12 @@ void commandListener(std::shared_ptr<AdventureGame>& game, std::shared_ptr<BaseM
             try {
                 if (item == "apple") {
                     game->useItemByName("apple"); 
-                } else if (item == "SmallHealthPotion") {
-                    game->useItemByName("SmallHealthPotion"); 
-                } else if (item == "HealthPotion") {
-                    game->useItemByName("HealthPotion"); 
-                } else if (item == "BigHealthPotion") {
-                    game->useItemByName("BigHealthPotion"); 
+                } else if (item == "smallhealthpotion") {
+                    game->useItemByName("smallhealthpotion"); 
+                } else if (item == "healthpotion") {
+                    game->useItemByName("healthpotion"); 
+                } else if (item == "bighealthpotion") {
+                    game->useItemByName("bighealthpotion"); 
                 } else {
                     throw std::invalid_argument("Item does not exist: " + item);
                 }

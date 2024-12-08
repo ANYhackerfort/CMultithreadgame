@@ -12,7 +12,7 @@ Topic7::Topic7()
 Topic7::Topic7(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
-      squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
+      squares{{{false, true, false}, {true, true, true}, {true, true, true}}} {
 }
 
 Topic7::~Topic7() {
@@ -37,17 +37,17 @@ void Topic7::handleSquare00() {
 
     printChoices("answers", "True", "False");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+    if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
 
         // displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
         displayWithDelay("gramps launches an attack: What is the name of the class being inherited from?", 1500); 
         printChoices("answers", "Base class","Derived class","SigmaClass","All of the above");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "1","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "1","","",baseGame)) {
             squares[0][0] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
-            displayWithDelay("You beat this boss (Marked in X)!, You are free to trasverse this level!");
+            displayWithDelay("You beat this boss!, You are free to trasverse this level!");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
@@ -70,17 +70,17 @@ void Topic7::handleSquare02() {
 
     printChoices("answers", "Public inheritance by default", "Private inheritance by default","Protected inheritance by default","No inheritance occurs");
     startInputListener(); //auto stops each time, you have to type this each time
-    if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
+    if(validateChoice(getCurrentInput(), "2","","",baseGame)) {
 
         // displayWithDelay("You have met up against [std::map] again! the final Ohio boss of this level!", 1000); 
         displayWithDelay("dad launches another attack: What is the order of constructor calls in inheritance?", 1500); 
         printChoices("answers", "Derived class constructor, then base class constructor","Base class constructor, then derived class constructor","Constructors are called simultaneously","None of the above");
         startInputListener();
-        if(validateChoice(getCurrentInput(), "2","","",baseMap)) {
+        if(validateChoice(getCurrentInput(), "2","","",baseGame)) {
             squares[0][2] = true; 
             baseGame->completedSquares++;
             displayMapWithPlayer(squares, baseMap);
-            displayWithDelay("You beat this boss (Marked in X)!, You are free to trasverse this level!");
+            displayWithDelay("You beat this boss!, You are free to trasverse this level!");
         } else {
             displayWithDelay("You lost, progress reset!");
         }
@@ -134,7 +134,7 @@ void Topic7::handleCurrentSquare() {
 
     if (x >= 0 && x < 3 && y >= 0 && y < 3) {
         if (squares[x][y]) {
-            std::cout << "You have already completed this level, you are free to move through it!\n";
+            std::cout << "[You completed this square, you are free to move through it!]\n";
             displayMapWithPlayerI();
         } else {
             if (x == 0 && y == 0) handleSquare00();
