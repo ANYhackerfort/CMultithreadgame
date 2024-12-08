@@ -2,7 +2,6 @@
 # Elden Ring Style Open World Game
 
 Project by: Matthew Zhang & Tony Li
-============================================================
 
 ## Objective
 The objective is to create an Elden Ring open-world game. This game has **10 maps (or areas)**, and each area has **9 squares (different parts of each map)**.
@@ -12,8 +11,6 @@ The objective is to create an Elden Ring open-world game. This game has **10 map
 - **Progress is stored** in 10 map objects. However, if you **die, YOU LOSE EVERYTHING.**
 - Read more to learn the quirk of teleportation.
 
-============================================================
-
 ## Teleportation
 - Users can always use `/map` to get all the maps they can travel to.
 - Once you enter the code, you can teleport there (like an Elden Ring map).
@@ -21,12 +18,8 @@ The objective is to create an Elden Ring open-world game. This game has **10 map
   **Example:** If you are in position `(2,1)` on the current map, teleporting to another map will still put you at `(2,1)`.
 - This limits your movement because you **must beat what’s on the current square** before progressing.
 
-============================================================
-
 ## Other Commands
 - When traveling with an animation, you are **hinted at commands** to check your health and items in your inventory.
-
-============================================================
 
 ## Rules
 - Once you lose all your health, **all progress is lost** at that square, and you have to start over.
@@ -35,13 +28,9 @@ The objective is to create an Elden Ring open-world game. This game has **10 map
 - Once you beat a square, the number of squares beaten is incremented.
   - **You cannot try to beat the square again!**
 
-============================================================
-
 ## How to Win
 - Complete **10 squares across the 10 maps**. You can choose any combination of maps and squares.
 - But beware: **once you lose all your health, GAME OVER. EVERYTHING RESETS!**
-
-============================================================
 
 ## Acknowledgments
 This project was written entirely by us while referring to:
@@ -49,8 +38,6 @@ This project was written entirely by us while referring to:
 - Resources such as Stack Overflow for debugging (e.g., `std::shared_ptr` race conditions)
 - WS2 School, which helped explain template classes
 - Stack Overflow for resolving common Makefile errors (e.g., `.h files should not be compiled individually into .o files`)
-
-============================================================
 
 ## Topics Used
 
@@ -92,8 +79,6 @@ This project was written entirely by us while referring to:
    - Players can sort inventory items by **name** or **count**.
    - Implemented with quicksort for efficient average-case time complexity.
 
-============================================================
-
 ### File-Specific Details
 
 #### game.cpp / adventuregame.cpp / basegame.cpp / topic1.cpp / topic2.cpp, etc.:
@@ -122,8 +107,6 @@ This project was written entirely by us while referring to:
 - **Topics Used:**
   - 4. Implements Constructor, Destructor, and Assignment Operator.
   - 7. Items inherit from the `GameItem` class.
-
-============================================================
 
 ## Challenges Encountered
 
