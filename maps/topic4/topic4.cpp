@@ -13,7 +13,7 @@ Topic4::Topic4()
 Topic4::Topic4(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
-      squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
+      squares{{{true, true, true}, {true, true, false}, {true, true, true}}} {
 }
 
 Topic4::~Topic4() {
@@ -107,7 +107,7 @@ void Topic4::handleCurrentSquare() {
     if (x >= 0 && x < 3 && y >= 0 && y < 3) {
         if (squares[x][y]) {
             displayMapWithPlayerI();
-            std::cout << "You have already completed this level, you are free to move through it!\n";
+            std::cout << "[What is the past tense of square? Sqore? ... this is a calm square]\n";
         } else {
             if (x == 0 && y == 0) handleSquare00();
             else if (x == 0 && y == 1) handleSquare01();

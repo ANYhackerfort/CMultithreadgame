@@ -13,7 +13,7 @@ Topic5::Topic5()
 Topic5::Topic5(std::shared_ptr<BaseMap>& existingBaseMap, std::shared_ptr<AdventureGame>& existingBaseGame)
     : baseMap(existingBaseMap),
       baseGame(existingBaseGame),
-      squares{{{false, false, false}, {false, false, false}, {false, false, false}}} {
+      squares{{{true, true, true}, {false, false, false}, {false, false, false}}} {
 }
 
 Topic5::~Topic5() {
@@ -34,10 +34,18 @@ void Topic5::handleSquare00() {
 
 void Topic5::handleSquare01() {
     std::cout << "You are on the Mountain.\n";
-    displayWithDelay("You found an item!");
+    displayWithDelay("You found a ton of apples!!");
     std::shared_ptr<Apple> appleItem = std::make_shared<Apple>();
+    std::shared_ptr<Apple> appleItem1 = std::make_shared<Apple>();
+    std::shared_ptr<Apple> appleItem2 = std::make_shared<Apple>();
+    std::shared_ptr<Apple> appleItem3 = std::make_shared<Apple>();
+    std::shared_ptr<Apple> appleItem4 = std::make_shared<Apple>();
     std::string apple = "apple"; 
     baseGame->addItem(apple, appleItem);
+    baseGame->addItem(apple, appleItem1);
+    baseGame->addItem(apple, appleItem2);
+    baseGame->addItem(apple, appleItem3);
+    baseGame->addItem(apple, appleItem4);
 }
 
 void Topic5::handleSquare02() {
