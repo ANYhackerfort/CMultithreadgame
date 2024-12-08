@@ -183,25 +183,25 @@ void commandListener(std::shared_ptr<AdventureGame>& game, std::shared_ptr<BaseM
             BaseMap* currentMap = processUserChoice(map, game, mapNumber);
             if (command == "movenorth") {
                 map->moveNorth();
-                if (map->uncompletedSquare()) {
+                if (currentMap->uncompletedSquare()) {
                     std::cout << "Cannot access! Staying at current square" << std::endl;
                     map->moveSouth();
                 }
             } else if (command == "movesouth") {
                 map->moveSouth();
-                if (map->uncompletedSquare()) {
+                if (currentMap->uncompletedSquare()) {
                     std::cout << "Cannot access! Staying at current square" << std::endl;
                     map->moveNorth();
                 }
             } else if (command == "movewest") {
                 map->moveWest();
-                if (map->uncompletedSquare()) {
+                if (currentMap->uncompletedSquare()) {
                     std::cout << "Cannot access! Staying at current square" << std::endl;
                     map->moveEast();
                 }
             } else if (command == "moveeast") {
                 map->moveEast();
-                if (map->uncompletedSquare()) {
+                if (currentMap->uncompletedSquare()) {
                     std::cout << "Cannot access! Staying at current square" << std::endl;
                     map->moveWest();
                 }

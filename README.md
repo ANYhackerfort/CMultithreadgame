@@ -12,7 +12,7 @@ The objective is to create an Elden Ring open-world game. This game has **10 map
 - Read more to learn the quirk of teleportation.
 
 > [!Note]
-> Quircks about teleportation, the fun part!
+> Quirks about teleportation, the fun part!
 >## Teleportation
 >- Users can always use `/map` to get all the maps they can travel to.
 >- Once you enter the code, you can teleport there (like an Elden Ring map).

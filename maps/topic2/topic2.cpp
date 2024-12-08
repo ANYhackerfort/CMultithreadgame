@@ -25,7 +25,10 @@ void Topic2::displayMapWithPlayerI() {
 }
 
 bool Topic2::uncompletedSquare() {
-    return !squares[baseMap->playerPosition.first][baseMap->playerPosition.second];
+    if (!squares[baseMap->previousPlayerPosition.first][baseMap->previousPlayerPosition.second] && !squares[baseMap->playerPosition.first][baseMap->playerPosition.second]) {
+        return true; 
+    }
+    return false;
 }
 
 void Topic2::handleSquare00() {
