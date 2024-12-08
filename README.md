@@ -11,12 +11,14 @@ The objective is to create an Elden Ring open-world game. This game has **10 map
 - **Progress is stored** in 10 map objects. However, if you **die, YOU LOSE EVERYTHING.**
 - Read more to learn the quirk of teleportation.
 
-## Teleportation
-- Users can always use `/map` to get all the maps they can travel to.
-- Once you enter the code, you can teleport there (like an Elden Ring map).
-- However, the position you teleport to will be the **same as your position on the current map**.
-  **Example:** If you are in position `(2,1)` on the current map, teleporting to another map will still put you at `(2,1)`.
-- This limits your movement because you **must beat what’s on the current square** before progressing.
+> [!Note]
+> Quircks about teleportation, the fun part!
+>## Teleportation
+>- Users can always use `/map` to get all the maps they can travel to.
+>- Once you enter the code, you can teleport there (like an Elden Ring map).
+>- However, the position you teleport to will be the **same as your position on the current map**.
+>  **Example:** If you are in position `(2,1)` on the current map, teleporting to another map will still put you at `(2,1)`.
+>- This limits your movement because you **must beat what’s on the current square** before progressing.
 
 ## Other Commands
 - When traveling with an animation, you are **hinted at commands** to check your health and items in your inventory.
@@ -109,8 +111,6 @@ This project was written entirely by us while referring to:
   - 7. Items inherit from the `GameItem` class.
 
 ## Challenges Encountered
-> [!NOTE]
-> beuh
 
 ### Hardships While Making This Project:
 - **Template Classes:** Really hard to work with.
