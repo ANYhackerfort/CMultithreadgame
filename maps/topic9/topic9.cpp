@@ -24,8 +24,10 @@ void Topic9::displayMapWithPlayerI() {
 }
 
 bool Topic9::uncompletedSquare() {
-    return !squares[baseMap->playerPosition.first][baseMap->playerPosition.second];
-}
+    if (!squares[baseMap->previousPlayerPosition.first][baseMap->previousPlayerPosition.second] && !squares[baseMap->playerPosition.first][baseMap->playerPosition.second]) {
+        return true; 
+    }
+    return false;}
 
 void Topic9::handleSquare00() {
     std::cout << "You are in the Void.\nThere is nothing here...\n";
