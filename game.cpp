@@ -278,7 +278,7 @@ void checkStatus(std::shared_ptr<AdventureGame>& game) {
         if (game->returnHealth() <= 0) {
             std::cout << "You have DIED! All Progress Lost! Type Q to quit game!" << std::endl;
             isGameRunning = false; 
-        } else if (game->completedSquares == 0) {
+        } else if (game->completedSquares == 10) {
             std::cout << "You have WON! Thanks for playing! Type Q to quit game!" << std::endl;
             isGameRunning = false; 
         }
